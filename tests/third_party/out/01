@@ -1,0 +1,14 @@
+.\tests\third_party\01.drac
+label: 1 content: main
+label: 22 content: (
+label: 23 content: )
+label: 24 content: {
+label: 1 content: prints
+label: 22 content: (
+label: 4 content: "hello, world\n"
+label: 23 content: )
+label: 20 content: ;
+label: 9 content: return
+label: 2 content: 42
+label: 20 content: ;
+label: 25 content: }
