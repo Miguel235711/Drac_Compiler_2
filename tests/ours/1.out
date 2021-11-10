@@ -1,0 +1,46 @@
+.\tests\ours\1.drac
+label: 1 content: main
+label: 22 content: (
+label: 1 content: a
+label: 21 content: ,
+label: 1 content: b
+label: 23 content: )
+label: 24 content: {
+label: 19 content: var
+label: 1 content: x
+label: 21 content: ,
+label: 1 content: y
+label: 20 content: ;
+label: 25 content: }
+Correct syntaxis
+.
+└── <program>
+    └── <def-list>
+        ├── <def-list>
+        └── <def>
+            └── <fun-def>
+                ├── <id>
+                ├── (
+                ├── <param-list>
+                │   └── <id-list>
+                │       ├── <id>
+                │       └── <id-list-cont>
+                │           ├── ,
+                │           ├── <id>
+                │           └── <id-list-cont>
+                ├── )
+                ├── {
+                ├── <var-def-list>
+                │   ├── <var-def-list>
+                │   └── <var-def>
+                │       ├── var
+                │       ├── <var-list>
+                │       │   └── <id-list>
+                │       │       ├── <id>
+                │       │       └── <id-list-cont>
+                │       │           ├── ,
+                │       │           ├── <id>
+                │       │           └── <id-list-cont>
+                │       └── ;
+                ├── <stmt-list>
+                └── }

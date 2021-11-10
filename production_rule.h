@@ -27,14 +27,14 @@ class ProductionRule{
         //int get_hash();
         int get_rule_label();
         bool is_there_symbol_at(int i);///manage -1
-        static int min_symbol_value,max_symbol_value;
+        //static int min_symbol_value,max_symbol_value;
         
     protected:
        
         std::vector<int> right_symbols;
         int rule_label,left_non_terminal;
 
-        int normalize_symbol_for_hash(int symbol);
+        //int normalize_symbol_for_hash(int symbol);
     private:
 
         int extended_index_to_simple(int i);

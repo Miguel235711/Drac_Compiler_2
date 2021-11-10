@@ -36,9 +36,9 @@ int ProductionRule::get_left_non_terminal(){
     }
     return x;
 }*/
-int ProductionRule::normalize_symbol_for_hash(int symbol){
-    return symbol + min_symbol_value;
-}
+// int ProductionRule::normalize_symbol_for_hash(int symbol){
+//     return symbol + min_symbol_value;
+// }
 
 int ProductionRule::get_rule_label(){
     return rule_label;

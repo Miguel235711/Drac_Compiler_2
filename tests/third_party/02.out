@@ -1,0 +1,1078 @@
+.\tests\third_party\02.drac
+label: 1 content: reverse
+label: 22 content: (
+label: 1 content: array
+label: 23 content: )
+label: 24 content: {
+label: 19 content: var
+label: 1 content: start
+label: 21 content: ,
+label: 1 content: finish
+label: 21 content: ,
+label: 1 content: temp
+label: 20 content: ;
+label: 1 content: start
+label: 39 content: =
+label: 2 content: 0
+label: 20 content: ;
+label: 1 content: finish
+label: 39 content: =
+label: 1 content: size
+label: 22 content: (
+label: 1 content: array
+label: 23 content: )
+label: 33 content: -
+label: 2 content: 1
+label: 20 content: ;
+label: 17 content: while
+label: 22 content: (
+label: 1 content: start
+label: 28 content: <
+label: 1 content: finish
+label: 23 content: )
+label: 24 content: {
+label: 1 content: temp
+label: 39 content: =
+label: 1 content: get
+label: 22 content: (
+label: 1 content: array
+label: 21 content: ,
+label: 1 content: start
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: set
+label: 22 content: (
+label: 1 content: array
+label: 21 content: ,
+label: 1 content: start
+label: 21 content: ,
+label: 1 content: get
+label: 22 content: (
+label: 1 content: array
+label: 21 content: ,
+label: 1 content: finish
+label: 23 content: )
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: set
+label: 22 content: (
+label: 1 content: array
+label: 21 content: ,
+label: 1 content: finish
+label: 21 content: ,
+label: 1 content: temp
+label: 23 content: )
+label: 20 content: ;
+label: 13 content: inc
+label: 1 content: start
+label: 20 content: ;
+label: 10 content: dec
+label: 1 content: finish
+label: 20 content: ;
+label: 25 content: }
+label: 25 content: }
+label: 1 content: binary
+label: 22 content: (
+label: 1 content: num
+label: 23 content: )
+label: 24 content: {
+label: 19 content: var
+label: 1 content: result
+label: 21 content: ,
+label: 1 content: remainder
+label: 20 content: ;
+label: 11 content: if
+label: 22 content: (
+label: 1 content: num
+label: 29 content: <=
+label: 2 content: 0
+label: 23 content: )
+label: 24 content: {
+label: 9 content: return
+label: 4 content: "0"
+label: 20 content: ;
+label: 25 content: }
+label: 1 content: result
+label: 39 content: =
+label: 4 content: ""
+label: 20 content: ;
+label: 17 content: while
+label: 22 content: (
+label: 1 content: num
+label: 30 content: >
+label: 2 content: 0
+label: 23 content: )
+label: 24 content: {
+label: 1 content: remainder
+label: 39 content: =
+label: 1 content: num
+label: 36 content: %
+label: 2 content: 2
+label: 20 content: ;
+label: 1 content: add
+label: 22 content: (
+label: 1 content: result
+label: 21 content: ,
+label: 1 content: remainder
+label: 32 content: +
+label: 3 content: '0'
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: num
+label: 39 content: =
+label: 1 content: num
+label: 35 content: /
+label: 2 content: 2
+label: 20 content: ;
+label: 25 content: }
+label: 1 content: reverse
+label: 22 content: (
+label: 1 content: result
+label: 23 content: )
+label: 20 content: ;
+label: 9 content: return
+label: 1 content: result
+label: 20 content: ;
+label: 25 content: }
+label: 1 content: main
+label: 22 content: (
+label: 23 content: )
+label: 24 content: {
+label: 19 content: var
+label: 1 content: option
+label: 21 content: ,
+label: 1 content: num
+label: 20 content: ;
+label: 12 content: do
+label: 24 content: {
+label: 1 content: prints
+label: 22 content: (
+label: 4 content: "Input a number: "
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: num
+label: 39 content: =
+label: 1 content: readi
+label: 22 content: (
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: prints
+label: 22 content: (
+label: 4 content: "Conversion to binary of that number: "
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: prints
+label: 22 content: (
+label: 1 content: binary
+label: 22 content: (
+label: 1 content: num
+label: 23 content: )
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: println
+label: 22 content: (
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: prints
+label: 22 content: (
+label: 4 content: "Convert another number? "
+label: 23 content: )
+label: 20 content: ;
+label: 1 content: option
+label: 39 content: =
+label: 1 content: reads
+label: 22 content: (
+label: 23 content: )
+label: 20 content: ;
+label: 11 content: if
+label: 22 content: (
+label: 1 content: size
+label: 22 content: (
+label: 1 content: option
+label: 23 content: )
+label: 26 content: ==
+label: 2 content: 0
+label: 23 content: )
+label: 24 content: {
+label: 1 content: option
+label: 39 content: =
+label: 3 content: 'N'
+label: 20 content: ;
+label: 25 content: }
+label: 6 content: else
+label: 24 content: {
+label: 1 content: option
+label: 39 content: =
+label: 1 content: get
+label: 22 content: (
+label: 1 content: option
+label: 21 content: ,
+label: 2 content: 0
+label: 23 content: )
+label: 20 content: ;
+label: 25 content: }
+label: 25 content: }
+label: 17 content: while
+label: 22 content: (
+label: 1 content: option
+label: 26 content: ==
+label: 3 content: 'Y'
+label: 7 content: or
+label: 1 content: option
+label: 26 content: ==
+label: 3 content: 'y'
+label: 23 content: )
+label: 20 content: ;
+label: 25 content: }
+Correctsyntaxis
+.
+└── <def-list>
+    ├── <def>
+    │   └── <fun-def>
+    │       ├── }
+    │       ├── <stmt-list>
+    │       │   ├── <stmt>
+    │       │   │   └── <stmt-do-while>
+    │       │   │       ├── ;
+    │       │   │       ├── )
+    │       │   │       ├── <expr>
+    │       │   │       │   └── <expr-or>
+    │       │   │       │       ├── <expr-and>
+    │       │   │       │       │   └── <expr-comp>
+    │       │   │       │       │       ├── <expr-rel>
+    │       │   │       │       │       │   └── <expr-add>
+    │       │   │       │       │       │       └── <expr-mul>
+    │       │   │       │       │       │           └── <expr-unary>
+    │       │   │       │       │       │               └── <expr-primary>
+    │       │   │       │       │       │                   └── <lit>
+    │       │   │       │       │       │                       └── <lit-char>
+    │       │   │       │       │       ├── <op-comp>
+    │       │   │       │       │       │   └── ==
+    │       │   │       │       │       └── <expr-comp>
+    │       │   │       │       │           └── <expr-rel>
+    │       │   │       │       │               └── <expr-add>
+    │       │   │       │       │                   └── <expr-mul>
+    │       │   │       │       │                       └── <expr-unary>
+    │       │   │       │       │                           └── <expr-primary>
+    │       │   │       │       │                               └── <id>
+    │       │   │       │       ├── or
+    │       │   │       │       └── <expr-or>
+    │       │   │       │           └── <expr-and>
+    │       │   │       │               └── <expr-comp>
+    │       │   │       │                   ├── <expr-rel>
+    │       │   │       │                   │   └── <expr-add>
+    │       │   │       │                   │       └── <expr-mul>
+    │       │   │       │                   │           └── <expr-unary>
+    │       │   │       │                   │               └── <expr-primary>
+    │       │   │       │                   │                   └── <lit>
+    │       │   │       │                   │                       └── <lit-char>
+    │       │   │       │                   ├── <op-comp>
+    │       │   │       │                   │   └── ==
+    │       │   │       │                   └── <expr-comp>
+    │       │   │       │                       └── <expr-rel>
+    │       │   │       │                           └── <expr-add>
+    │       │   │       │                               └── <expr-mul>
+    │       │   │       │                                   └── <expr-unary>
+    │       │   │       │                                       └── <expr-primary>
+    │       │   │       │                                           └── <id>
+    │       │   │       ├── (
+    │       │   │       ├── while
+    │       │   │       ├── }
+    │       │   │       ├── <stmt-list>
+    │       │   │       │   ├── <stmt>
+    │       │   │       │   │   └── <stmt-if>
+    │       │   │       │   │       ├── <else>
+    │       │   │       │   │       │   ├── }
+    │       │   │       │   │       │   ├── <stmt-list>
+    │       │   │       │   │       │   │   ├── <stmt>
+    │       │   │       │   │       │   │   │   └── <stmt-assign>
+    │       │   │       │   │       │   │   │       ├── ;
+    │       │   │       │   │       │   │   │       ├── <expr>
+    │       │   │       │   │       │   │   │       │   └── <expr-or>
+    │       │   │       │   │       │   │   │       │       └── <expr-and>
+    │       │   │       │   │       │   │   │       │           └── <expr-comp>
+    │       │   │       │   │       │   │   │       │               └── <expr-rel>
+    │       │   │       │   │       │   │   │       │                   └── <expr-add>
+    │       │   │       │   │       │   │   │       │                       └── <expr-mul>
+    │       │   │       │   │       │   │   │       │                           └── <expr-unary>
+    │       │   │       │   │       │   │   │       │                               └── <expr-primary>
+    │       │   │       │   │       │   │   │       │                                   └── <fun-call>
+    │       │   │       │   │       │   │   │       │                                       ├── )
+    │       │   │       │   │       │   │   │       │                                       ├── <expr-list>
+    │       │   │       │   │       │   │   │       │                                       │   ├── <expr-list-cont>
+    │       │   │       │   │       │   │   │       │                                       │   │   ├── <expr-list-cont>
+    │       │   │       │   │       │   │   │       │                                       │   │   ├── <expr>
+    │       │   │       │   │       │   │   │       │                                       │   │   │   └── <expr-or>
+    │       │   │       │   │       │   │   │       │                                       │   │   │       └── <expr-and>
+    │       │   │       │   │       │   │   │       │                                       │   │   │           └── <expr-comp>
+    │       │   │       │   │       │   │   │       │                                       │   │   │               └── <expr-rel>
+    │       │   │       │   │       │   │   │       │                                       │   │   │                   └── <expr-add>
+    │       │   │       │   │       │   │   │       │                                       │   │   │                       └── <expr-mul>
+    │       │   │       │   │       │   │   │       │                                       │   │   │                           └── <expr-unary>
+    │       │   │       │   │       │   │   │       │                                       │   │   │                               └── <expr-primary>
+    │       │   │       │   │       │   │   │       │                                       │   │   │                                   └── <lit>
+    │       │   │       │   │       │   │   │       │                                       │   │   │                                       └── <lit-int>
+    │       │   │       │   │       │   │   │       │                                       │   │   └── ,
+    │       │   │       │   │       │   │   │       │                                       │   └── <expr>
+    │       │   │       │   │       │   │   │       │                                       │       └── <expr-or>
+    │       │   │       │   │       │   │   │       │                                       │           └── <expr-and>
+    │       │   │       │   │       │   │   │       │                                       │               └── <expr-comp>
+    │       │   │       │   │       │   │   │       │                                       │                   └── <expr-rel>
+    │       │   │       │   │       │   │   │       │                                       │                       └── <expr-add>
+    │       │   │       │   │       │   │   │       │                                       │                           └── <expr-mul>
+    │       │   │       │   │       │   │   │       │                                       │                               └── <expr-unary>
+    │       │   │       │   │       │   │   │       │                                       │                                   └── <expr-primary>
+    │       │   │       │   │       │   │   │       │                                       │                                       └── <id>
+    │       │   │       │   │       │   │   │       │                                       ├── (
+    │       │   │       │   │       │   │   │       │                                       └── <id>
+    │       │   │       │   │       │   │   │       ├── =
+    │       │   │       │   │       │   │   │       └── <id>
+    │       │   │       │   │       │   │   └── <stmt-list>
+    │       │   │       │   │       │   ├── {
+    │       │   │       │   │       │   └── else
+    │       │   │       │   │       ├── <else-if-list>
+    │       │   │       │   │       ├── }
+    │       │   │       │   │       ├── <stmt-list>
+    │       │   │       │   │       │   ├── <stmt>
+    │       │   │       │   │       │   │   └── <stmt-assign>
+    │       │   │       │   │       │   │       ├── ;
+    │       │   │       │   │       │   │       ├── <expr>
+    │       │   │       │   │       │   │       │   └── <expr-or>
+    │       │   │       │   │       │   │       │       └── <expr-and>
+    │       │   │       │   │       │   │       │           └── <expr-comp>
+    │       │   │       │   │       │   │       │               └── <expr-rel>
+    │       │   │       │   │       │   │       │                   └── <expr-add>
+    │       │   │       │   │       │   │       │                       └── <expr-mul>
+    │       │   │       │   │       │   │       │                           └── <expr-unary>
+    │       │   │       │   │       │   │       │                               └── <expr-primary>
+    │       │   │       │   │       │   │       │                                   └── <lit>
+    │       │   │       │   │       │   │       │                                       └── <lit-char>
+    │       │   │       │   │       │   │       ├── =
+    │       │   │       │   │       │   │       └── <id>
+    │       │   │       │   │       │   └── <stmt-list>
+    │       │   │       │   │       ├── {
+    │       │   │       │   │       ├── )
+    │       │   │       │   │       ├── <expr>
+    │       │   │       │   │       │   └── <expr-or>
+    │       │   │       │   │       │       └── <expr-and>
+    │       │   │       │   │       │           └── <expr-comp>
+    │       │   │       │   │       │               ├── <expr-rel>
+    │       │   │       │   │       │               │   └── <expr-add>
+    │       │   │       │   │       │               │       └── <expr-mul>
+    │       │   │       │   │       │               │           └── <expr-unary>
+    │       │   │       │   │       │               │               └── <expr-primary>
+    │       │   │       │   │       │               │                   └── <lit>
+    │       │   │       │   │       │               │                       └── <lit-int>
+    │       │   │       │   │       │               ├── <op-comp>
+    │       │   │       │   │       │               │   └── ==
+    │       │   │       │   │       │               └── <expr-comp>
+    │       │   │       │   │       │                   └── <expr-rel>
+    │       │   │       │   │       │                       └── <expr-add>
+    │       │   │       │   │       │                           └── <expr-mul>
+    │       │   │       │   │       │                               └── <expr-unary>
+    │       │   │       │   │       │                                   └── <expr-primary>
+    │       │   │       │   │       │                                       └── <fun-call>
+    │       │   │       │   │       │                                           ├── )
+    │       │   │       │   │       │                                           ├── <expr-list>
+    │       │   │       │   │       │                                           │   ├── <expr-list-cont>
+    │       │   │       │   │       │                                           │   └── <expr>
+    │       │   │       │   │       │                                           │       └── <expr-or>
+    │       │   │       │   │       │                                           │           └── <expr-and>
+    │       │   │       │   │       │                                           │               └── <expr-comp>
+    │       │   │       │   │       │                                           │                   └── <expr-rel>
+    │       │   │       │   │       │                                           │                       └── <expr-add>
+    │       │   │       │   │       │                                           │                           └── <expr-mul>
+    │       │   │       │   │       │                                           │                               └── <expr-unary>
+    │       │   │       │   │       │                                           │                                   └── <expr-primary>
+    │       │   │       │   │       │                                           │                                       └── <id>
+    │       │   │       │   │       │                                           ├── (
+    │       │   │       │   │       │                                           └── <id>
+    │       │   │       │   │       ├── (
+    │       │   │       │   │       └── if
+    │       │   │       │   └── <stmt-list>
+    │       │   │       │       ├── <stmt>
+    │       │   │       │       │   └── <stmt-assign>
+    │       │   │       │       │       ├── ;
+    │       │   │       │       │       ├── <expr>
+    │       │   │       │       │       │   └── <expr-or>
+    │       │   │       │       │       │       └── <expr-and>
+    │       │   │       │       │       │           └── <expr-comp>
+    │       │   │       │       │       │               └── <expr-rel>
+    │       │   │       │       │       │                   └── <expr-add>
+    │       │   │       │       │       │                       └── <expr-mul>
+    │       │   │       │       │       │                           └── <expr-unary>
+    │       │   │       │       │       │                               └── <expr-primary>
+    │       │   │       │       │       │                                   └── <fun-call>
+    │       │   │       │       │       │                                       ├── )
+    │       │   │       │       │       │                                       ├── <expr-list>
+    │       │   │       │       │       │                                       ├── (
+    │       │   │       │       │       │                                       └── <id>
+    │       │   │       │       │       ├── =
+    │       │   │       │       │       └── <id>
+    │       │   │       │       └── <stmt-list>
+    │       │   │       │           ├── <stmt>
+    │       │   │       │           │   └── <stmt-fun-call>
+    │       │   │       │           │       ├── ;
+    │       │   │       │           │       └── <fun-call>
+    │       │   │       │           │           ├── )
+    │       │   │       │           │           ├── <expr-list>
+    │       │   │       │           │           │   ├── <expr-list-cont>
+    │       │   │       │           │           │   └── <expr>
+    │       │   │       │           │           │       └── <expr-or>
+    │       │   │       │           │           │           └── <expr-and>
+    │       │   │       │           │           │               └── <expr-comp>
+    │       │   │       │           │           │                   └── <expr-rel>
+    │       │   │       │           │           │                       └── <expr-add>
+    │       │   │       │           │           │                           └── <expr-mul>
+    │       │   │       │           │           │                               └── <expr-unary>
+    │       │   │       │           │           │                                   └── <expr-primary>
+    │       │   │       │           │           │                                       └── <lit>
+    │       │   │       │           │           │                                           └── <lit-str>
+    │       │   │       │           │           ├── (
+    │       │   │       │           │           └── <id>
+    │       │   │       │           └── <stmt-list>
+    │       │   │       │               ├── <stmt>
+    │       │   │       │               │   └── <stmt-fun-call>
+    │       │   │       │               │       ├── ;
+    │       │   │       │               │       └── <fun-call>
+    │       │   │       │               │           ├── )
+    │       │   │       │               │           ├── <expr-list>
+    │       │   │       │               │           ├── (
+    │       │   │       │               │           └── <id>
+    │       │   │       │               └── <stmt-list>
+    │       │   │       │                   ├── <stmt>
+    │       │   │       │                   │   └── <stmt-fun-call>
+    │       │   │       │                   │       ├── ;
+    │       │   │       │                   │       └── <fun-call>
+    │       │   │       │                   │           ├── )
+    │       │   │       │                   │           ├── <expr-list>
+    │       │   │       │                   │           │   ├── <expr-list-cont>
+    │       │   │       │                   │           │   └── <expr>
+    │       │   │       │                   │           │       └── <expr-or>
+    │       │   │       │                   │           │           └── <expr-and>
+    │       │   │       │                   │           │               └── <expr-comp>
+    │       │   │       │                   │           │                   └── <expr-rel>
+    │       │   │       │                   │           │                       └── <expr-add>
+    │       │   │       │                   │           │                           └── <expr-mul>
+    │       │   │       │                   │           │                               └── <expr-unary>
+    │       │   │       │                   │           │                                   └── <expr-primary>
+    │       │   │       │                   │           │                                       └── <fun-call>
+    │       │   │       │                   │           │                                           ├── )
+    │       │   │       │                   │           │                                           ├── <expr-list>
+    │       │   │       │                   │           │                                           │   ├── <expr-list-cont>
+    │       │   │       │                   │           │                                           │   └── <expr>
+    │       │   │       │                   │           │                                           │       └── <expr-or>
+    │       │   │       │                   │           │                                           │           └── <expr-and>
+    │       │   │       │                   │           │                                           │               └── <expr-comp>
+    │       │   │       │                   │           │                                           │                   └── <expr-rel>
+    │       │   │       │                   │           │                                           │                       └── <expr-add>
+    │       │   │       │                   │           │                                           │                           └── <expr-mul>
+    │       │   │       │                   │           │                                           │                               └── <expr-unary>
+    │       │   │       │                   │           │                                           │                                   └── <expr-primary>
+    │       │   │       │                   │           │                                           │                                       └── <id>
+    │       │   │       │                   │           │                                           ├── (
+    │       │   │       │                   │           │                                           └── <id>
+    │       │   │       │                   │           ├── (
+    │       │   │       │                   │           └── <id>
+    │       │   │       │                   └── <stmt-list>
+    │       │   │       │                       ├── <stmt>
+    │       │   │       │                       │   └── <stmt-fun-call>
+    │       │   │       │                       │       ├── ;
+    │       │   │       │                       │       └── <fun-call>
+    │       │   │       │                       │           ├── )
+    │       │   │       │                       │           ├── <expr-list>
+    │       │   │       │                       │           │   ├── <expr-list-cont>
+    │       │   │       │                       │           │   └── <expr>
+    │       │   │       │                       │           │       └── <expr-or>
+    │       │   │       │                       │           │           └── <expr-and>
+    │       │   │       │                       │           │               └── <expr-comp>
+    │       │   │       │                       │           │                   └── <expr-rel>
+    │       │   │       │                       │           │                       └── <expr-add>
+    │       │   │       │                       │           │                           └── <expr-mul>
+    │       │   │       │                       │           │                               └── <expr-unary>
+    │       │   │       │                       │           │                                   └── <expr-primary>
+    │       │   │       │                       │           │                                       └── <lit>
+    │       │   │       │                       │           │                                           └── <lit-str>
+    │       │   │       │                       │           ├── (
+    │       │   │       │                       │           └── <id>
+    │       │   │       │                       └── <stmt-list>
+    │       │   │       │                           ├── <stmt>
+    │       │   │       │                           │   └── <stmt-assign>
+    │       │   │       │                           │       ├── ;
+    │       │   │       │                           │       ├── <expr>
+    │       │   │       │                           │       │   └── <expr-or>
+    │       │   │       │                           │       │       └── <expr-and>
+    │       │   │       │                           │       │           └── <expr-comp>
+    │       │   │       │                           │       │               └── <expr-rel>
+    │       │   │       │                           │       │                   └── <expr-add>
+    │       │   │       │                           │       │                       └── <expr-mul>
+    │       │   │       │                           │       │                           └── <expr-unary>
+    │       │   │       │                           │       │                               └── <expr-primary>
+    │       │   │       │                           │       │                                   └── <fun-call>
+    │       │   │       │                           │       │                                       ├── )
+    │       │   │       │                           │       │                                       ├── <expr-list>
+    │       │   │       │                           │       │                                       ├── (
+    │       │   │       │                           │       │                                       └── <id>
+    │       │   │       │                           │       ├── =
+    │       │   │       │                           │       └── <id>
+    │       │   │       │                           └── <stmt-list>
+    │       │   │       │                               ├── <stmt>
+    │       │   │       │                               │   └── <stmt-fun-call>
+    │       │   │       │                               │       ├── ;
+    │       │   │       │                               │       └── <fun-call>
+    │       │   │       │                               │           ├── )
+    │       │   │       │                               │           ├── <expr-list>
+    │       │   │       │                               │           │   ├── <expr-list-cont>
+    │       │   │       │                               │           │   └── <expr>
+    │       │   │       │                               │           │       └── <expr-or>
+    │       │   │       │                               │           │           └── <expr-and>
+    │       │   │       │                               │           │               └── <expr-comp>
+    │       │   │       │                               │           │                   └── <expr-rel>
+    │       │   │       │                               │           │                       └── <expr-add>
+    │       │   │       │                               │           │                           └── <expr-mul>
+    │       │   │       │                               │           │                               └── <expr-unary>
+    │       │   │       │                               │           │                                   └── <expr-primary>
+    │       │   │       │                               │           │                                       └── <lit>
+    │       │   │       │                               │           │                                           └── <lit-str>
+    │       │   │       │                               │           ├── (
+    │       │   │       │                               │           └── <id>
+    │       │   │       │                               └── <stmt-list>
+    │       │   │       ├── {
+    │       │   │       └── do
+    │       │   └── <stmt-list>
+    │       ├── <var-def-list>
+    │       │   ├── <var-def>
+    │       │   │   ├── ;
+    │       │   │   ├── <var-list>
+    │       │   │   │   └── <id-list>
+    │       │   │   │       ├── <id-list-cont>
+    │       │   │   │       │   ├── <id-list-cont>
+    │       │   │   │       │   ├── <id>
+    │       │   │   │       │   └── ,
+    │       │   │   │       └── <id>
+    │       │   │   └── var
+    │       │   └── <var-def-list>
+    │       ├── {
+    │       ├── )
+    │       ├── <param-list>
+    │       ├── (
+    │       └── <id>
+    └── <def-list>
+        ├── <def>
+        │   └── <fun-def>
+        │       ├── }
+        │       ├── <stmt-list>
+        │       │   ├── <stmt>
+        │       │   │   └── <stmt-return>
+        │       │   │       ├── ;
+        │       │   │       ├── <expr>
+        │       │   │       │   └── <expr-or>
+        │       │   │       │       └── <expr-and>
+        │       │   │       │           └── <expr-comp>
+        │       │   │       │               └── <expr-rel>
+        │       │   │       │                   └── <expr-add>
+        │       │   │       │                       └── <expr-mul>
+        │       │   │       │                           └── <expr-unary>
+        │       │   │       │                               └── <expr-primary>
+        │       │   │       │                                   └── <id>
+        │       │   │       └── return
+        │       │   └── <stmt-list>
+        │       │       ├── <stmt>
+        │       │       │   └── <stmt-fun-call>
+        │       │       │       ├── ;
+        │       │       │       └── <fun-call>
+        │       │       │           ├── )
+        │       │       │           ├── <expr-list>
+        │       │       │           │   ├── <expr-list-cont>
+        │       │       │           │   └── <expr>
+        │       │       │           │       └── <expr-or>
+        │       │       │           │           └── <expr-and>
+        │       │       │           │               └── <expr-comp>
+        │       │       │           │                   └── <expr-rel>
+        │       │       │           │                       └── <expr-add>
+        │       │       │           │                           └── <expr-mul>
+        │       │       │           │                               └── <expr-unary>
+        │       │       │           │                                   └── <expr-primary>
+        │       │       │           │                                       └── <id>
+        │       │       │           ├── (
+        │       │       │           └── <id>
+        │       │       └── <stmt-list>
+        │       │           ├── <stmt>
+        │       │           │   └── <stmt-while>
+        │       │           │       ├── }
+        │       │           │       ├── <stmt-list>
+        │       │           │       │   ├── <stmt>
+        │       │           │       │   │   └── <stmt-assign>
+        │       │           │       │   │       ├── ;
+        │       │           │       │   │       ├── <expr>
+        │       │           │       │   │       │   └── <expr-or>
+        │       │           │       │   │       │       └── <expr-and>
+        │       │           │       │   │       │           └── <expr-comp>
+        │       │           │       │   │       │               └── <expr-rel>
+        │       │           │       │   │       │                   └── <expr-add>
+        │       │           │       │   │       │                       └── <expr-mul>
+        │       │           │       │   │       │                           ├── <expr-unary>
+        │       │           │       │   │       │                           │   └── <expr-primary>
+        │       │           │       │   │       │                           │       └── <lit>
+        │       │           │       │   │       │                           │           └── <lit-int>
+        │       │           │       │   │       │                           ├── <op-mul>
+        │       │           │       │   │       │                           │   └── /
+        │       │           │       │   │       │                           └── <expr-mul>
+        │       │           │       │   │       │                               └── <expr-unary>
+        │       │           │       │   │       │                                   └── <expr-primary>
+        │       │           │       │   │       │                                       └── <id>
+        │       │           │       │   │       ├── =
+        │       │           │       │   │       └── <id>
+        │       │           │       │   └── <stmt-list>
+        │       │           │       │       ├── <stmt>
+        │       │           │       │       │   └── <stmt-fun-call>
+        │       │           │       │       │       ├── ;
+        │       │           │       │       │       └── <fun-call>
+        │       │           │       │       │           ├── )
+        │       │           │       │       │           ├── <expr-list>
+        │       │           │       │       │           │   ├── <expr-list-cont>
+        │       │           │       │       │           │   │   ├── <expr-list-cont>
+        │       │           │       │       │           │   │   ├── <expr>
+        │       │           │       │       │           │   │   │   └── <expr-or>
+        │       │           │       │       │           │   │   │       └── <expr-and>
+        │       │           │       │       │           │   │   │           └── <expr-comp>
+        │       │           │       │       │           │   │   │               └── <expr-rel>
+        │       │           │       │       │           │   │   │                   └── <expr-add>
+        │       │           │       │       │           │   │   │                       ├── <expr-mul>
+        │       │           │       │       │           │   │   │                       │   └── <expr-unary>
+        │       │           │       │       │           │   │   │                       │       └── <expr-primary>
+        │       │           │       │       │           │   │   │                       │           └── <lit>
+        │       │           │       │       │           │   │   │                       │               └── <lit-char>
+        │       │           │       │       │           │   │   │                       ├── <op-add>
+        │       │           │       │       │           │   │   │                       │   └── +
+        │       │           │       │       │           │   │   │                       └── <expr-add>
+        │       │           │       │       │           │   │   │                           └── <expr-mul>
+        │       │           │       │       │           │   │   │                               └── <expr-unary>
+        │       │           │       │       │           │   │   │                                   └── <expr-primary>
+        │       │           │       │       │           │   │   │                                       └── <id>
+        │       │           │       │       │           │   │   └── ,
+        │       │           │       │       │           │   └── <expr>
+        │       │           │       │       │           │       └── <expr-or>
+        │       │           │       │       │           │           └── <expr-and>
+        │       │           │       │       │           │               └── <expr-comp>
+        │       │           │       │       │           │                   └── <expr-rel>
+        │       │           │       │       │           │                       └── <expr-add>
+        │       │           │       │       │           │                           └── <expr-mul>
+        │       │           │       │       │           │                               └── <expr-unary>
+        │       │           │       │       │           │                                   └── <expr-primary>
+        │       │           │       │       │           │                                       └── <id>
+        │       │           │       │       │           ├── (
+        │       │           │       │       │           └── <id>
+        │       │           │       │       └── <stmt-list>
+        │       │           │       │           ├── <stmt>
+        │       │           │       │           │   └── <stmt-assign>
+        │       │           │       │           │       ├── ;
+        │       │           │       │           │       ├── <expr>
+        │       │           │       │           │       │   └── <expr-or>
+        │       │           │       │           │       │       └── <expr-and>
+        │       │           │       │           │       │           └── <expr-comp>
+        │       │           │       │           │       │               └── <expr-rel>
+        │       │           │       │           │       │                   └── <expr-add>
+        │       │           │       │           │       │                       └── <expr-mul>
+        │       │           │       │           │       │                           ├── <expr-unary>
+        │       │           │       │           │       │                           │   └── <expr-primary>
+        │       │           │       │           │       │                           │       └── <lit>
+        │       │           │       │           │       │                           │           └── <lit-int>
+        │       │           │       │           │       │                           ├── <op-mul>
+        │       │           │       │           │       │                           │   └── %
+        │       │           │       │           │       │                           └── <expr-mul>
+        │       │           │       │           │       │                               └── <expr-unary>
+        │       │           │       │           │       │                                   └── <expr-primary>
+        │       │           │       │           │       │                                       └── <id>
+        │       │           │       │           │       ├── =
+        │       │           │       │           │       └── <id>
+        │       │           │       │           └── <stmt-list>
+        │       │           │       ├── {
+        │       │           │       ├── )
+        │       │           │       ├── <expr>
+        │       │           │       │   └── <expr-or>
+        │       │           │       │       └── <expr-and>
+        │       │           │       │           └── <expr-comp>
+        │       │           │       │               └── <expr-rel>
+        │       │           │       │                   ├── <expr-add>
+        │       │           │       │                   │   └── <expr-mul>
+        │       │           │       │                   │       └── <expr-unary>
+        │       │           │       │                   │           └── <expr-primary>
+        │       │           │       │                   │               └── <lit>
+        │       │           │       │                   │                   └── <lit-int>
+        │       │           │       │                   ├── <op-rel>
+        │       │           │       │                   │   └── >
+        │       │           │       │                   └── <expr-rel>
+        │       │           │       │                       └── <expr-add>
+        │       │           │       │                           └── <expr-mul>
+        │       │           │       │                               └── <expr-unary>
+        │       │           │       │                                   └── <expr-primary>
+        │       │           │       │                                       └── <id>
+        │       │           │       ├── (
+        │       │           │       └── while
+        │       │           └── <stmt-list>
+        │       │               ├── <stmt>
+        │       │               │   └── <stmt-assign>
+        │       │               │       ├── ;
+        │       │               │       ├── <expr>
+        │       │               │       │   └── <expr-or>
+        │       │               │       │       └── <expr-and>
+        │       │               │       │           └── <expr-comp>
+        │       │               │       │               └── <expr-rel>
+        │       │               │       │                   └── <expr-add>
+        │       │               │       │                       └── <expr-mul>
+        │       │               │       │                           └── <expr-unary>
+        │       │               │       │                               └── <expr-primary>
+        │       │               │       │                                   └── <lit>
+        │       │               │       │                                       └── <lit-str>
+        │       │               │       ├── =
+        │       │               │       └── <id>
+        │       │               └── <stmt-list>
+        │       │                   ├── <stmt>
+        │       │                   │   └── <stmt-if>
+        │       │                   │       ├── <else>
+        │       │                   │       ├── <else-if-list>
+        │       │                   │       ├── }
+        │       │                   │       ├── <stmt-list>
+        │       │                   │       │   ├── <stmt>
+        │       │                   │       │   │   └── <stmt-return>
+        │       │                   │       │   │       ├── ;
+        │       │                   │       │   │       ├── <expr>
+        │       │                   │       │   │       │   └── <expr-or>
+        │       │                   │       │   │       │       └── <expr-and>
+        │       │                   │       │   │       │           └── <expr-comp>
+        │       │                   │       │   │       │               └── <expr-rel>
+        │       │                   │       │   │       │                   └── <expr-add>
+        │       │                   │       │   │       │                       └── <expr-mul>
+        │       │                   │       │   │       │                           └── <expr-unary>
+        │       │                   │       │   │       │                               └── <expr-primary>
+        │       │                   │       │   │       │                                   └── <lit>
+        │       │                   │       │   │       │                                       └── <lit-str>
+        │       │                   │       │   │       └── return
+        │       │                   │       │   └── <stmt-list>
+        │       │                   │       ├── {
+        │       │                   │       ├── )
+        │       │                   │       ├── <expr>
+        │       │                   │       │   └── <expr-or>
+        │       │                   │       │       └── <expr-and>
+        │       │                   │       │           └── <expr-comp>
+        │       │                   │       │               └── <expr-rel>
+        │       │                   │       │                   ├── <expr-add>
+        │       │                   │       │                   │   └── <expr-mul>
+        │       │                   │       │                   │       └── <expr-unary>
+        │       │                   │       │                   │           └── <expr-primary>
+        │       │                   │       │                   │               └── <lit>
+        │       │                   │       │                   │                   └── <lit-int>
+        │       │                   │       │                   ├── <op-rel>
+        │       │                   │       │                   │   └── <=
+        │       │                   │       │                   └── <expr-rel>
+        │       │                   │       │                       └── <expr-add>
+        │       │                   │       │                           └── <expr-mul>
+        │       │                   │       │                               └── <expr-unary>
+        │       │                   │       │                                   └── <expr-primary>
+        │       │                   │       │                                       └── <id>
+        │       │                   │       ├── (
+        │       │                   │       └── if
+        │       │                   └── <stmt-list>
+        │       ├── <var-def-list>
+        │       │   ├── <var-def>
+        │       │   │   ├── ;
+        │       │   │   ├── <var-list>
+        │       │   │   │   └── <id-list>
+        │       │   │   │       ├── <id-list-cont>
+        │       │   │   │       │   ├── <id-list-cont>
+        │       │   │   │       │   ├── <id>
+        │       │   │   │       │   └── ,
+        │       │   │   │       └── <id>
+        │       │   │   └── var
+        │       │   └── <var-def-list>
+        │       ├── {
+        │       ├── )
+        │       ├── <param-list>
+        │       │   └── <id-list>
+        │       │       ├── <id-list-cont>
+        │       │       └── <id>
+        │       ├── (
+        │       └── <id>
+        └── <def-list>
+            ├── <def>
+            │   └── <fun-def>
+            │       ├── }
+            │       ├── <stmt-list>
+            │       │   ├── <stmt>
+            │       │   │   └── <stmt-while>
+            │       │   │       ├── }
+            │       │   │       ├── <stmt-list>
+            │       │   │       │   ├── <stmt>
+            │       │   │       │   │   └── <stmt-decr>
+            │       │   │       │   │       ├── ;
+            │       │   │       │   │       ├── <id>
+            │       │   │       │   │       └── dec
+            │       │   │       │   └── <stmt-list>
+            │       │   │       │       ├── <stmt>
+            │       │   │       │       │   └── <stmt-incr>
+            │       │   │       │       │       ├── ;
+            │       │   │       │       │       ├── <id>
+            │       │   │       │       │       └── inc
+            │       │   │       │       └── <stmt-list>
+            │       │   │       │           ├── <stmt>
+            │       │   │       │           │   └── <stmt-fun-call>
+            │       │   │       │           │       ├── ;
+            │       │   │       │           │       └── <fun-call>
+            │       │   │       │           │           ├── )
+            │       │   │       │           │           ├── <expr-list>
+            │       │   │       │           │           │   ├── <expr-list-cont>
+            │       │   │       │           │           │   │   ├── <expr-list-cont>
+            │       │   │       │           │           │   │   │   ├── <expr-list-cont>
+            │       │   │       │           │           │   │   │   ├── <expr>
+            │       │   │       │           │           │   │   │   │   └── <expr-or>
+            │       │   │       │           │           │   │   │   │       └── <expr-and>
+            │       │   │       │           │           │   │   │   │           └── <expr-comp>
+            │       │   │       │           │           │   │   │   │               └── <expr-rel>
+            │       │   │       │           │           │   │   │   │                   └── <expr-add>
+            │       │   │       │           │           │   │   │   │                       └── <expr-mul>
+            │       │   │       │           │           │   │   │   │                           └── <expr-unary>
+            │       │   │       │           │           │   │   │   │                               └── <expr-primary>
+            │       │   │       │           │           │   │   │   │                                   └── <id>
+            │       │   │       │           │           │   │   │   └── ,
+            │       │   │       │           │           │   │   ├── <expr>
+            │       │   │       │           │           │   │   │   └── <expr-or>
+            │       │   │       │           │           │   │   │       └── <expr-and>
+            │       │   │       │           │           │   │   │           └── <expr-comp>
+            │       │   │       │           │           │   │   │               └── <expr-rel>
+            │       │   │       │           │           │   │   │                   └── <expr-add>
+            │       │   │       │           │           │   │   │                       └── <expr-mul>
+            │       │   │       │           │           │   │   │                           └── <expr-unary>
+            │       │   │       │           │           │   │   │                               └── <expr-primary>
+            │       │   │       │           │           │   │   │                                   └── <id>
+            │       │   │       │           │           │   │   └── ,
+            │       │   │       │           │           │   └── <expr>
+            │       │   │       │           │           │       └── <expr-or>
+            │       │   │       │           │           │           └── <expr-and>
+            │       │   │       │           │           │               └── <expr-comp>
+            │       │   │       │           │           │                   └── <expr-rel>
+            │       │   │       │           │           │                       └── <expr-add>
+            │       │   │       │           │           │                           └── <expr-mul>
+            │       │   │       │           │           │                               └── <expr-unary>
+            │       │   │       │           │           │                                   └── <expr-primary>
+            │       │   │       │           │           │                                       └── <id>
+            │       │   │       │           │           ├── (
+            │       │   │       │           │           └── <id>
+            │       │   │       │           └── <stmt-list>
+            │       │   │       │               ├── <stmt>
+            │       │   │       │               │   └── <stmt-fun-call>
+            │       │   │       │               │       ├── ;
+            │       │   │       │               │       └── <fun-call>
+            │       │   │       │               │           ├── )
+            │       │   │       │               │           ├── <expr-list>
+            │       │   │       │               │           │   ├── <expr-list-cont>
+            │       │   │       │               │           │   │   ├── <expr-list-cont>
+            │       │   │       │               │           │   │   │   ├── <expr-list-cont>
+            │       │   │       │               │           │   │   │   ├── <expr>
+            │       │   │       │               │           │   │   │   │   └── <expr-or>
+            │       │   │       │               │           │   │   │   │       └── <expr-and>
+            │       │   │       │               │           │   │   │   │           └── <expr-comp>
+            │       │   │       │               │           │   │   │   │               └── <expr-rel>
+            │       │   │       │               │           │   │   │   │                   └── <expr-add>
+            │       │   │       │               │           │   │   │   │                       └── <expr-mul>
+            │       │   │       │               │           │   │   │   │                           └── <expr-unary>
+            │       │   │       │               │           │   │   │   │                               └── <expr-primary>
+            │       │   │       │               │           │   │   │   │                                   └── <fun-call>
+            │       │   │       │               │           │   │   │   │                                       ├── )
+            │       │   │       │               │           │   │   │   │                                       ├── <expr-list>
+            │       │   │       │               │           │   │   │   │                                       │   ├── <expr-list-cont>
+            │       │   │       │               │           │   │   │   │                                       │   │   ├── <expr-list-cont>
+            │       │   │       │               │           │   │   │   │                                       │   │   ├── <expr>
+            │       │   │       │               │           │   │   │   │                                       │   │   │   └── <expr-or>
+            │       │   │       │               │           │   │   │   │                                       │   │   │       └── <expr-and>
+            │       │   │       │               │           │   │   │   │                                       │   │   │           └── <expr-comp>
+            │       │   │       │               │           │   │   │   │                                       │   │   │               └── <expr-rel>
+            │       │   │       │               │           │   │   │   │                                       │   │   │                   └── <expr-add>
+            │       │   │       │               │           │   │   │   │                                       │   │   │                       └── <expr-mul>
+            │       │   │       │               │           │   │   │   │                                       │   │   │                           └── <expr-unary>
+            │       │   │       │               │           │   │   │   │                                       │   │   │                               └── <expr-primary>
+            │       │   │       │               │           │   │   │   │                                       │   │   │                                   └── <id>
+            │       │   │       │               │           │   │   │   │                                       │   │   └── ,
+            │       │   │       │               │           │   │   │   │                                       │   └── <expr>
+            │       │   │       │               │           │   │   │   │                                       │       └── <expr-or>
+            │       │   │       │               │           │   │   │   │                                       │           └── <expr-and>
+            │       │   │       │               │           │   │   │   │                                       │               └── <expr-comp>
+            │       │   │       │               │           │   │   │   │                                       │                   └── <expr-rel>
+            │       │   │       │               │           │   │   │   │                                       │                       └── <expr-add>
+            │       │   │       │               │           │   │   │   │                                       │                           └── <expr-mul>
+            │       │   │       │               │           │   │   │   │                                       │                               └── <expr-unary>
+            │       │   │       │               │           │   │   │   │                                       │                                   └── <expr-primary>
+            │       │   │       │               │           │   │   │   │                                       │                                       └── <id>
+            │       │   │       │               │           │   │   │   │                                       ├── (
+            │       │   │       │               │           │   │   │   │                                       └── <id>
+            │       │   │       │               │           │   │   │   └── ,
+            │       │   │       │               │           │   │   ├── <expr>
+            │       │   │       │               │           │   │   │   └── <expr-or>
+            │       │   │       │               │           │   │   │       └── <expr-and>
+            │       │   │       │               │           │   │   │           └── <expr-comp>
+            │       │   │       │               │           │   │   │               └── <expr-rel>
+            │       │   │       │               │           │   │   │                   └── <expr-add>
+            │       │   │       │               │           │   │   │                       └── <expr-mul>
+            │       │   │       │               │           │   │   │                           └── <expr-unary>
+            │       │   │       │               │           │   │   │                               └── <expr-primary>
+            │       │   │       │               │           │   │   │                                   └── <id>
+            │       │   │       │               │           │   │   └── ,
+            │       │   │       │               │           │   └── <expr>
+            │       │   │       │               │           │       └── <expr-or>
+            │       │   │       │               │           │           └── <expr-and>
+            │       │   │       │               │           │               └── <expr-comp>
+            │       │   │       │               │           │                   └── <expr-rel>
+            │       │   │       │               │           │                       └── <expr-add>
+            │       │   │       │               │           │                           └── <expr-mul>
+            │       │   │       │               │           │                               └── <expr-unary>
+            │       │   │       │               │           │                                   └── <expr-primary>
+            │       │   │       │               │           │                                       └── <id>
+            │       │   │       │               │           ├── (
+            │       │   │       │               │           └── <id>
+            │       │   │       │               └── <stmt-list>
+            │       │   │       │                   ├── <stmt>
+            │       │   │       │                   │   └── <stmt-assign>
+            │       │   │       │                   │       ├── ;
+            │       │   │       │                   │       ├── <expr>
+            │       │   │       │                   │       │   └── <expr-or>
+            │       │   │       │                   │       │       └── <expr-and>
+            │       │   │       │                   │       │           └── <expr-comp>
+            │       │   │       │                   │       │               └── <expr-rel>
+            │       │   │       │                   │       │                   └── <expr-add>
+            │       │   │       │                   │       │                       └── <expr-mul>
+            │       │   │       │                   │       │                           └── <expr-unary>
+            │       │   │       │                   │       │                               └── <expr-primary>
+            │       │   │       │                   │       │                                   └── <fun-call>
+            │       │   │       │                   │       │                                       ├── )
+            │       │   │       │                   │       │                                       ├── <expr-list>
+            │       │   │       │                   │       │                                       │   ├── <expr-list-cont>
+            │       │   │       │                   │       │                                       │   │   ├── <expr-list-cont>
+            │       │   │       │                   │       │                                       │   │   ├── <expr>
+            │       │   │       │                   │       │                                       │   │   │   └── <expr-or>
+            │       │   │       │                   │       │                                       │   │   │       └── <expr-and>
+            │       │   │       │                   │       │                                       │   │   │           └── <expr-comp>
+            │       │   │       │                   │       │                                       │   │   │               └── <expr-rel>
+            │       │   │       │                   │       │                                       │   │   │                   └── <expr-add>
+            │       │   │       │                   │       │                                       │   │   │                       └── <expr-mul>
+            │       │   │       │                   │       │                                       │   │   │                           └── <expr-unary>
+            │       │   │       │                   │       │                                       │   │   │                               └── <expr-primary>
+            │       │   │       │                   │       │                                       │   │   │                                   └── <id>
+            │       │   │       │                   │       │                                       │   │   └── ,
+            │       │   │       │                   │       │                                       │   └── <expr>
+            │       │   │       │                   │       │                                       │       └── <expr-or>
+            │       │   │       │                   │       │                                       │           └── <expr-and>
+            │       │   │       │                   │       │                                       │               └── <expr-comp>
+            │       │   │       │                   │       │                                       │                   └── <expr-rel>
+            │       │   │       │                   │       │                                       │                       └── <expr-add>
+            │       │   │       │                   │       │                                       │                           └── <expr-mul>
+            │       │   │       │                   │       │                                       │                               └── <expr-unary>
+            │       │   │       │                   │       │                                       │                                   └── <expr-primary>
+            │       │   │       │                   │       │                                       │                                       └── <id>
+            │       │   │       │                   │       │                                       ├── (
+            │       │   │       │                   │       │                                       └── <id>
+            │       │   │       │                   │       ├── =
+            │       │   │       │                   │       └── <id>
+            │       │   │       │                   └── <stmt-list>
+            │       │   │       ├── {
+            │       │   │       ├── )
+            │       │   │       ├── <expr>
+            │       │   │       │   └── <expr-or>
+            │       │   │       │       └── <expr-and>
+            │       │   │       │           └── <expr-comp>
+            │       │   │       │               └── <expr-rel>
+            │       │   │       │                   ├── <expr-add>
+            │       │   │       │                   │   └── <expr-mul>
+            │       │   │       │                   │       └── <expr-unary>
+            │       │   │       │                   │           └── <expr-primary>
+            │       │   │       │                   │               └── <id>
+            │       │   │       │                   ├── <op-rel>
+            │       │   │       │                   │   └── <
+            │       │   │       │                   └── <expr-rel>
+            │       │   │       │                       └── <expr-add>
+            │       │   │       │                           └── <expr-mul>
+            │       │   │       │                               └── <expr-unary>
+            │       │   │       │                                   └── <expr-primary>
+            │       │   │       │                                       └── <id>
+            │       │   │       ├── (
+            │       │   │       └── while
+            │       │   └── <stmt-list>
+            │       │       ├── <stmt>
+            │       │       │   └── <stmt-assign>
+            │       │       │       ├── ;
+            │       │       │       ├── <expr>
+            │       │       │       │   └── <expr-or>
+            │       │       │       │       └── <expr-and>
+            │       │       │       │           └── <expr-comp>
+            │       │       │       │               └── <expr-rel>
+            │       │       │       │                   └── <expr-add>
+            │       │       │       │                       ├── <expr-mul>
+            │       │       │       │                       │   └── <expr-unary>
+            │       │       │       │                       │       └── <expr-primary>
+            │       │       │       │                       │           └── <lit>
+            │       │       │       │                       │               └── <lit-int>
+            │       │       │       │                       ├── <op-add>
+            │       │       │       │                       │   └── -
+            │       │       │       │                       └── <expr-add>
+            │       │       │       │                           └── <expr-mul>
+            │       │       │       │                               └── <expr-unary>
+            │       │       │       │                                   └── <expr-primary>
+            │       │       │       │                                       └── <fun-call>
+            │       │       │       │                                           ├── )
+            │       │       │       │                                           ├── <expr-list>
+            │       │       │       │                                           │   ├── <expr-list-cont>
+            │       │       │       │                                           │   └── <expr>
+            │       │       │       │                                           │       └── <expr-or>
+            │       │       │       │                                           │           └── <expr-and>
+            │       │       │       │                                           │               └── <expr-comp>
+            │       │       │       │                                           │                   └── <expr-rel>
+            │       │       │       │                                           │                       └── <expr-add>
+            │       │       │       │                                           │                           └── <expr-mul>
+            │       │       │       │                                           │                               └── <expr-unary>
+            │       │       │       │                                           │                                   └── <expr-primary>
+            │       │       │       │                                           │                                       └── <id>
+            │       │       │       │                                           ├── (
+            │       │       │       │                                           └── <id>
+            │       │       │       ├── =
+            │       │       │       └── <id>
+            │       │       └── <stmt-list>
+            │       │           ├── <stmt>
+            │       │           │   └── <stmt-assign>
+            │       │           │       ├── ;
+            │       │           │       ├── <expr>
+            │       │           │       │   └── <expr-or>
+            │       │           │       │       └── <expr-and>
+            │       │           │       │           └── <expr-comp>
+            │       │           │       │               └── <expr-rel>
+            │       │           │       │                   └── <expr-add>
+            │       │           │       │                       └── <expr-mul>
+            │       │           │       │                           └── <expr-unary>
+            │       │           │       │                               └── <expr-primary>
+            │       │           │       │                                   └── <lit>
+            │       │           │       │                                       └── <lit-int>
+            │       │           │       ├── =
+            │       │           │       └── <id>
+            │       │           └── <stmt-list>
+            │       ├── <var-def-list>
+            │       │   ├── <var-def>
+            │       │   │   ├── ;
+            │       │   │   ├── <var-list>
+            │       │   │   │   └── <id-list>
+            │       │   │   │       ├── <id-list-cont>
+            │       │   │   │       │   ├── <id-list-cont>
+            │       │   │   │       │   │   ├── <id-list-cont>
+            │       │   │   │       │   │   ├── <id>
+            │       │   │   │       │   │   └── ,
+            │       │   │   │       │   ├── <id>
+            │       │   │   │       │   └── ,
+            │       │   │   │       └── <id>
+            │       │   │   └── var
+            │       │   └── <var-def-list>
+            │       ├── {
+            │       ├── )
+            │       ├── <param-list>
+            │       │   └── <id-list>
+            │       │       ├── <id-list-cont>
+            │       │       └── <id>
+            │       ├── (
+            │       └── <id>
+            └── <def-list>

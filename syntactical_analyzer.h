@@ -6,7 +6,9 @@
 #include <utility>
 #include <string>
 #include <fstream>
+#include <functional>
 #include <stack>
+#include <algorithm>
 
 #include "op_type.h"
 #include "production_rule.h"
@@ -14,10 +16,12 @@
 class SyntacticalAnalyzer{
     public: 
         
-        SyntacticalAnalyzer(std::string syntactical_in_file_name,std::string rule_in_file_name);
+        SyntacticalAnalyzer(std::string syntactical_in_file_name,std::string rule_in_file_name,std::string symbols_in_file_name);
         virtual ~SyntacticalAnalyzer();
         bool is_correct(std::vector<std::pair<int,std::string> > & tokens);
-        static int empty_symbol,end_symbol;
+        void print_syntatical_table(std::function<void(std::string)> & f_out);
+
+        static int end_symbol;
 
     private:
 
@@ -26,11 +30,35 @@ class SyntacticalAnalyzer{
             State(){}
         };
 
+        struct SyntacticalNode{
+            int symbol;
+            std::vector<SyntacticalNode*> adjacent; 
+            SyntacticalNode(int symbol):symbol(symbol){
+            }
+            SyntacticalNode(){}
+        };
+
+        struct StackElement{
+            bool is_state; //if false, it is a symbol;
+            int element;
+            SyntacticalNode * node=NULL;
+
+            StackElement(bool is_state,int element):is_state(is_state),element(element){
+                if(!is_state)
+                    ///create node
+                    node = new SyntacticalNode(element);
+            }
+            StackElement(){}
+        };
+
         std::vector<State*> table;
         std::vector<ProductionRule*> rules;
+        std::unordered_map<int,std::string> symbol_lexval_to_name;  
+        StackElement * parent_stack_element;
 
         std::pair<OpType,int> get_mov(int state,int symbol);
-        bool handle_reduction(std::stack<std::pair<bool,int> > & st,int rule_number);   
+        bool handle_reduction(std::stack<StackElement*> & st,int rule_number);   
+        void print_syntatical_table(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level);
 };
 
 #endif // SYNTACTICAL_ANALYZER_H

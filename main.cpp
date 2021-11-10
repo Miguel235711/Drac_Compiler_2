@@ -11,8 +11,8 @@
 
 bool testing = false;
 auto cases_path_c_str = std::string("./cases/").c_str();
-int SyntacticalAnalyzer::end_symbol = 40, SyntacticalAnalyzer::empty_symbol = 41;
-int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 41;
+int SyntacticalAnalyzer::end_symbol = 40;
+//int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 40;
 
 int main(int argc,char ** argv){
     LexicalAnalyzer lexical_analyzer;
@@ -65,7 +65,7 @@ int main(int argc,char ** argv){
         }
     }
     //init syntatical analyzer
-    SyntacticalAnalyzer syntactical_analyzer("./syntactical_table.txt","./grammar.txt");
+    SyntacticalAnalyzer syntactical_analyzer("./syntactical_table.txt","./grammar.txt","./symbols.txt");
     for(auto file_name: filenames){
         std::vector<std::pair<int,std::string> > tokens;
         if(!lexical_analyzer.get_tokens(file_name,tokens)){
@@ -78,7 +78,13 @@ int main(int argc,char ** argv){
         ///
         //add 
         tokens.push_back({SyntacticalAnalyzer::end_symbol,""}); // special symbol for syntactical analysis
-        f_out(syntactical_analyzer.is_correct(tokens) ? "Correct syntaxis" : "Incorrect syntaxis");
+        bool is_correct = syntactical_analyzer.is_correct(tokens);
+        std::string preffix_msg = is_correct ? "Correct" : "Incorrect";
+        f_out(preffix_msg +  " syntaxis\n");
+        if(is_correct){
+            ///print tree
+            syntactical_analyzer.print_syntatical_table(f_out);
+        }
     }
     out.close();
     return 0;

@@ -3,7 +3,7 @@
 
 
 
-SyntacticalAnalyzer::SyntacticalAnalyzer(std::string syntactical_in_file_name,std::string rule_in_file_name){
+SyntacticalAnalyzer::SyntacticalAnalyzer(std::string syntactical_in_file_name,std::string rule_in_file_name,std::string symbols_in_file_name){
     
     ///load rules
     std::ifstream in(rule_in_file_name);
@@ -48,53 +48,65 @@ SyntacticalAnalyzer::SyntacticalAnalyzer(std::string syntactical_in_file_name,st
         }
     }
     in.close();
+
+    //load symbol_valex_to_name
+    in.open(symbols_in_file_name);
+    int symbol_lexval;
+    std::string symbol_name;
+    while(in >> symbol_lexval >> symbol_name)
+        symbol_lexval_to_name[symbol_lexval]=symbol_name;
+    in.close();
 }
 SyntacticalAnalyzer::~SyntacticalAnalyzer(){
 
 }
 bool SyntacticalAnalyzer::is_correct(std::vector<std::pair<int,std::string> > & tokens){
-    std::stack<std::pair<bool,int> > st;
-    st.push({true,0});
-    std::cout << "what\n";
+    std::stack<StackElement*> st;
+    st.push(new StackElement(true,0));
+    //std::cout << "what\n";
     for(auto token: tokens){
-        std::cout << "token: " << token.first << "\n";
+        //std::cout << "token: " << token.first << "\n";
         while(1){
             if(st.empty())
                 return false;
             auto x = st.top();
             std::pair<OpType,int> mov;
-            if(x.first){
+            if(x->is_state){
                 ///stack , token
-                mov = get_mov(x.second,token.first);
+                mov = get_mov(x->element,token.first);
             }else{
                 ///stack, stack
                 st.pop();
                 if(st.empty())
                     return false;
                 auto y = st.top();
-                assert(y.first); /// check that it is a state
-                mov = get_mov(y.second,x.second);
+                assert(y->is_state); /// check that it is a state
+                mov = get_mov(y->element,x->element);
                 st.push(x);
             }
             std::cout << "mov type: " << mov.first << "\n";
-            if(mov.first == Acc)
+            if(mov.first == Acc){
+                std::cout << "root: " << parent_stack_element->element << " " << parent_stack_element->is_state << "\n";
                 return true;
+            }
             if(mov.first == None){
                 //syntatical error
                 return false;
-            }else if(mov.first == Reduction){
-                std::cout << "Reduction! " << st.size() << "\n";
+            }
+            if(mov.first == Reduction){
+                //std::cout << "Reduction! " << st.size() << "\n";
                 if(!handle_reduction(st,mov.second))
                     //syntatical error
                     return false;
             }else{
+                auto last_to_push = new StackElement(true,mov.second);
                 if(mov.first == Shift){
-                    st.push({false,token.first});
-                    st.push({true,mov.second});                   
+                    st.push(new StackElement(false,token.first));
+                    st.push(last_to_push);                   
                     break;
                 }else{
                     //(mov.first == GoTo){
-                    st.push({true,mov.second});
+                    st.push(last_to_push);
                 }
             }
         }
@@ -109,10 +121,12 @@ std::pair<OpType,int>  SyntacticalAnalyzer::get_mov(int state,int symbol){
         return {None,-1};
     return it->second;
 }
-bool SyntacticalAnalyzer::handle_reduction(std::stack<std::pair<bool,int> > & st,int rule_number){
-    std::cout << "rule_number: " << rule_number << "\n";
-    std::cout << "rules: " << rules.size() << "\n";
+bool SyntacticalAnalyzer::handle_reduction(std::stack<StackElement*> & st,int rule_number){
+    //std::cout << "rule_number: " << rule_number << "\n";
+    //std::cout << "rules: " << rules.size() << "\n";
     auto rule = rules[rule_number];
+    parent_stack_element = new StackElement(false,rule->get_left_non_terminal());
+    auto & parent_adjacent =  parent_stack_element->node->adjacent;
     for(int i = -1 ;rule->is_there_symbol_at(i);i--){
         auto r_symbol = rule->get_ith_right_symbol(i);
         /*if(r_symbol==empty_symbol&&!st.empty()){ ///especial case because we know that empty means only this symbol DANGEROUS!!!!!!!!!!
@@ -122,16 +136,32 @@ bool SyntacticalAnalyzer::handle_reduction(std::stack<std::pair<bool,int> > & st
             break;
         }*/
         //std::cout << "r_symbol: " << r_symbol << "i: " << i << "\n";
-        if(!st.empty()&&st.top().first){
+        if(!st.empty()&&st.top()->is_state){
             i++;
         }else{
-            if(st.empty() || r_symbol!=st.top().second)
+            if(st.empty() || r_symbol!=st.top()->element)
                 //could not reduce
                 return false; 
+            ///track nodes ....
+            //element
+            parent_adjacent.push_back(st.top()->node);
         }
         st.pop();
     }
     //std::cout << "rule_number: " << rule_number << "\n";
-    st.push({false,rule->get_left_non_terminal()});
+    std::reverse(parent_adjacent.begin(),parent_adjacent.end());
+    st.push(parent_stack_element);
     return true;
 }  
+
+
+void SyntacticalAnalyzer::print_syntatical_table(std::function<void(std::string)> & f_out){
+    f_out("# <program>\n");
+    print_syntatical_table(parent_stack_element->node,f_out,2);
+}
+
+void SyntacticalAnalyzer::print_syntatical_table(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level){
+    f_out(std::string(level,'#')+" "+symbol_lexval_to_name[node->symbol]+"\n");
+    for(auto child : node->adjacent)
+        print_syntatical_table(child,f_out,level+1);
+}
