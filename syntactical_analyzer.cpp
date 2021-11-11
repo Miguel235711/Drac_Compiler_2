@@ -1,5 +1,5 @@
 #include "syntactical_analyzer.h"
-
+#include "lexical_analyzer.h"
 
 
 SyntacticalAnalyzer::SyntacticalAnalyzer(const InFileNames & in_file_names){
@@ -46,14 +46,6 @@ SyntacticalAnalyzer::SyntacticalAnalyzer(const InFileNames & in_file_names){
             table[i]->adjacent.insert(to_insert);
         }
     }
-    in.close();
-
-    //load symbol_valex_to_name
-    in.open(in_file_names.symbols_file_name);
-    int symbol_lexval;
-    std::string symbol_name;
-    while(in >> symbol_lexval >> symbol_name)
-        symbol_lexval_to_name[symbol_lexval]=symbol_name;
     in.close();
 }
 SyntacticalAnalyzer::~SyntacticalAnalyzer(){
@@ -164,7 +156,7 @@ void SyntacticalAnalyzer::print_syntatical_table(std::function<void(std::string)
 }
 
 void SyntacticalAnalyzer::print_syntatical_table(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level){
-    f_out(std::string(level,'#')+" "+symbol_lexval_to_name[node->symbol]+"\n");
+    f_out(std::string(level,'#')+" "+LexicalAnalyzer::symbol_lexval_to_name[node->symbol]+"\n");
     for(auto child : node->adjacent)
         print_syntatical_table(child,f_out,level+1);
 }

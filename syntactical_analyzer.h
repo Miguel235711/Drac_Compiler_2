@@ -54,7 +54,7 @@ class SyntacticalAnalyzer{
 
         std::vector<State*> table;
         std::vector<ProductionRule*> rules;
-        std::unordered_map<int,std::string> symbol_lexval_to_name;  
+        
         StackElement * parent_stack_element;
 
         std::pair<OpType,int> get_mov(int state,int symbol);

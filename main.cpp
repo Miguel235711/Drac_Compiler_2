@@ -16,9 +16,22 @@ bool testing = false;
 auto cases_path_c_str = std::string("./cases/").c_str();
 int SyntacticalAnalyzer::end_symbol = 40;
 char subbuff[10000];
+std::unordered_map<int,std::string> LexicalAnalyzer::symbol_lexval_to_name;
 //int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 40;
+auto in_file_names = InFileNames("./syntactical_table.txt","./grammar.txt","./symbols.txt");
+
+void load_lex_names(){
+    std::fstream in(in_file_names.symbols_file_name); 
+    //load symbol_valex_to_name
+    int symbol_lexval;
+    std::string symbol_name;
+    while(in >> symbol_lexval >> symbol_name)
+        LexicalAnalyzer::symbol_lexval_to_name[symbol_lexval]=symbol_name;
+    in.close();
+}
 
 int main(int argc,char ** argv){
+    load_lex_names();
     LexicalAnalyzer lexical_analyzer;
     std::vector<std::string> filenames;
 
@@ -60,7 +73,6 @@ int main(int argc,char ** argv){
         }
     }
     //init syntatical analyzer
-    auto in_file_names = InFileNames("./syntactical_table.txt","./grammar.txt","./symbols.txt");
     SyntacticalAnalyzer syntactical_analyzer(in_file_names);
     out_files.open();
     auto lexical_f_out = out_files.get_func('l'), tree_f_out = out_files.get_func('t'), symbol_f_out = out_files.get_func('s');
@@ -72,7 +84,7 @@ int main(int argc,char ** argv){
         }
         lexical_f_out(file_name+"\n");
         for(auto token: tokens)
-            lexical_f_out("label: "+std::to_string(token.first)+" content: "+token.second+"\n");
+            lexical_f_out("label: "+LexicalAnalyzer::symbol_lexval_to_name[token.first]+" content: "+token.second+"\n");
         ///
         //add 
         tokens.push_back({SyntacticalAnalyzer::end_symbol,""}); // special symbol for syntactical analysis

@@ -25,6 +25,7 @@ class LexicalAnalyzer{
         std::string get_last_token();
         int get_column();
         int get_line();
+        static std::unordered_map<int,std::string> symbol_lexval_to_name;
     private:
         LexicalAutomata automata;
         std::string token;
