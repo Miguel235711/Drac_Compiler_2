@@ -1,5 +1,3 @@
-import enum
-from os import stat
 from selenium import webdriver
 import re
 

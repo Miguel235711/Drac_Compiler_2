@@ -12,11 +12,12 @@
 
 #include "op_type.h"
 #include "production_rule.h"
+#include "in_file_names.h"
 
 class SyntacticalAnalyzer{
     public: 
         
-        SyntacticalAnalyzer(std::string syntactical_in_file_name,std::string rule_in_file_name,std::string symbols_in_file_name);
+        SyntacticalAnalyzer(const InFileNames & in_file_names);
         virtual ~SyntacticalAnalyzer();
         bool is_correct(std::vector<std::pair<int,std::string> > & tokens);
         void print_syntatical_table(std::function<void(std::string)> & f_out);

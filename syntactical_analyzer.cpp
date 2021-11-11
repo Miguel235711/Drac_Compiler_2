@@ -2,11 +2,10 @@
 
 
 
-
-SyntacticalAnalyzer::SyntacticalAnalyzer(std::string syntactical_in_file_name,std::string rule_in_file_name,std::string symbols_in_file_name){
+SyntacticalAnalyzer::SyntacticalAnalyzer(const InFileNames & in_file_names){
     
     ///load rules
-    std::ifstream in(rule_in_file_name);
+    std::ifstream in(in_file_names.rule_file_name);
     std::string line;
     int symbol, rule_count = 0;
     while(getline(in,line)){
@@ -26,7 +25,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer(std::string syntactical_in_file_name,st
     //load sytacical table
 
     in.close();
-    in.open(syntactical_in_file_name);
+    in.open(in_file_names.syntactical_file_name);
     int n,m,to_st_ind,op_type_int;
     std::pair<int,std::pair<OpType,int> > to_insert;
     
@@ -50,7 +49,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer(std::string syntactical_in_file_name,st
     in.close();
 
     //load symbol_valex_to_name
-    in.open(symbols_in_file_name);
+    in.open(in_file_names.symbols_file_name);
     int symbol_lexval;
     std::string symbol_name;
     while(in >> symbol_lexval >> symbol_name)
@@ -84,9 +83,13 @@ bool SyntacticalAnalyzer::is_correct(std::vector<std::pair<int,std::string> > & 
                 mov = get_mov(y->element,x->element);
                 st.push(x);
             }
-            std::cout << "mov type: " << mov.first << "\n";
+            //std::cout << "mov type: " << mov.first << "\n";
             if(mov.first == Acc){
-                std::cout << "root: " << parent_stack_element->element << " " << parent_stack_element->is_state << "\n";
+                //add -1 token
+                auto root = new StackElement(false,rules[0]->get_left_non_terminal());
+                root->node->adjacent.push_back(parent_stack_element->node);
+                parent_stack_element = root;
+                //std::cout << "root: " << parent_stack_element->element << " " << parent_stack_element->is_state << "\n";
                 return true;
             }
             if(mov.first == None){
@@ -156,8 +159,8 @@ bool SyntacticalAnalyzer::handle_reduction(std::stack<StackElement*> & st,int ru
 
 
 void SyntacticalAnalyzer::print_syntatical_table(std::function<void(std::string)> & f_out){
-    f_out("# <program>\n");
-    print_syntatical_table(parent_stack_element->node,f_out,2);
+    //f_out("# <program>\n");
+    print_syntatical_table(parent_stack_element->node,f_out,1);
 }
 
 void SyntacticalAnalyzer::print_syntatical_table(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level){

@@ -4,50 +4,45 @@
 #include <cstring>
 #include <dirent.h>
 #include <functional>
+#include <unordered_map>
 
 #include "lexical_analyzer.h"
 #include "syntactical_analyzer.h"
 #include "production_rule.h"
+#include "out_files.h"
+#include "in_file_names.h"
 
 bool testing = false;
 auto cases_path_c_str = std::string("./cases/").c_str();
 int SyntacticalAnalyzer::end_symbol = 40;
+char subbuff[10000];
 //int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 40;
 
 int main(int argc,char ** argv){
     LexicalAnalyzer lexical_analyzer;
-    std::vector<std::string> filenames; 
+    std::vector<std::string> filenames;
 
-    std::string out_file_name;
+    OutFiles out_files;
 
     for(int i = 1 ; i < argc; i ++){
         auto str_n = strlen(argv[i]);
-        if(out_file_name.empty() && str_n>3 && argv[i][0]=='-'&&argv[i][1]=='f'&&argv[i][2]=='='){
-            out_file_name = &argv[i][3];
-        }else{
+        memcpy(subbuff,argv[i],3);
+        //std::cout << "subbfuff: " << argv[i] << "\n";
+        if(subbuff!=NULL && strlen(argv[i])>3 && subbuff[0]=='-' && subbuff[2]=='='){
+            char flag = subbuff[1];
+            //std::cout << "flag: " << flag << "\n";
+            if(out_files.is_flag_valid(flag)){
+                std::string ans = &argv[i][3];
+                //std::cout << "ans: " << ans << "\n"; 
+                out_files[flag] = ans;
+            }
+        }else
             //filename
             filenames.push_back(argv[i]);
-        }
     }
+    //std::cout << "lexical_log_file_name: " << out_file_names.lexical_log_file_name << " syntatical_tree_file_name: " << out_file_names.syntactical_tree_file_name << " symbol_table_file_name: " << out_file_names.symbol_table_file_name << "\n";
     DIR *dir;
     dirent * ent;
-
-    auto f_out_stdout = [&](const std::string & x){
-        std::cout << x;
-    };
-    std::ofstream out;
-    if(!out_file_name.empty())
-        out.open(out_file_name);
-    auto f_out_custom_file = [&](const std::string & x){
-        out << x;
-    };
-
-    std::function<void(std::string)> f_out;
-    if(out_file_name.empty())
-        f_out = f_out_stdout;
-    else
-        f_out = f_out_custom_file;
-    
 
     if(testing){
         if((dir=opendir(cases_path_c_str))!=NULL){
@@ -60,32 +55,39 @@ int main(int argc,char ** argv){
                 }
             }
         }else{
-            f_out("Error getting testing directory\n");
+            std::cout << "Error getting testing directory\n";
             return EXIT_FAILURE;
         }
     }
     //init syntatical analyzer
-    SyntacticalAnalyzer syntactical_analyzer("./syntactical_table.txt","./grammar.txt","./symbols.txt");
+    auto in_file_names = InFileNames("./syntactical_table.txt","./grammar.txt","./symbols.txt");
+    SyntacticalAnalyzer syntactical_analyzer(in_file_names);
+    out_files.open();
+    auto lexical_f_out = out_files.get_func('l'), tree_f_out = out_files.get_func('t'), symbol_f_out = out_files.get_func('s');
     for(auto file_name: filenames){
         std::vector<std::pair<int,std::string> > tokens;
         if(!lexical_analyzer.get_tokens(file_name,tokens)){
-            f_out(std::to_string(lexical_analyzer.get_line())+":"+std::to_string(lexical_analyzer.get_column())+" Token "+lexical_analyzer.get_last_token()+" is not valid\n");
+            (std::to_string(lexical_analyzer.get_line())+":"+std::to_string(lexical_analyzer.get_column())+" Token "+lexical_analyzer.get_last_token()+" is not valid\n");
             return EXIT_FAILURE;
         }
-        f_out(file_name+"\n");
+        lexical_f_out(file_name+"\n");
         for(auto token: tokens)
-            f_out("label: "+std::to_string(token.first)+" content: "+token.second+"\n");
+            lexical_f_out("label: "+std::to_string(token.first)+" content: "+token.second+"\n");
         ///
         //add 
         tokens.push_back({SyntacticalAnalyzer::end_symbol,""}); // special symbol for syntactical analysis
         bool is_correct = syntactical_analyzer.is_correct(tokens);
+        std::cout << file_name << "\n";
         std::string preffix_msg = is_correct ? "Correct" : "Incorrect";
-        f_out(preffix_msg +  " syntaxis\n");
+        std::cout << preffix_msg +  " syntaxis\n";
+        // tree_f_out("test\n");
+        // return 0;
+        tree_f_out(file_name+"\n");
         if(is_correct){
             ///print tree
-            syntactical_analyzer.print_syntatical_table(f_out);
+            syntactical_analyzer.print_syntatical_table(tree_f_out);
         }
     }
-    out.close();
+    out_files.close();
     return 0;
 }

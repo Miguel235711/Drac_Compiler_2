@@ -1,0 +1,34 @@
+.\tests\ours\0.drac
+# <program>
+## <def-list>
+.\tests\ours\1.drac
+# <program>
+## <def-list>
+### <def-list>
+### <def>
+#### <fun-def>
+##### <id>
+##### (
+##### <param-list>
+###### <id-list>
+####### <id>
+####### <id-list-cont>
+######## ,
+######## <id>
+######## <id-list-cont>
+##### )
+##### {
+##### <var-def-list>
+###### <var-def-list>
+###### <var-def>
+####### var
+####### <var-list>
+######## <id-list>
+######### <id>
+######### <id-list-cont>
+########## ,
+########## <id>
+########## <id-list-cont>
+####### ;
+##### <stmt-list>
+##### }
