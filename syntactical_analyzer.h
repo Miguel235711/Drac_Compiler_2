@@ -14,13 +14,26 @@
 #include "production_rule.h"
 #include "in_file_names.h"
 
+struct SyntacticalNode{
+    int symbol;
+    std::vector<SyntacticalNode*> adjacent;
+    std::string id_content; //empty if 
+    SyntacticalNode(int symbol):symbol(symbol){
+    }
+    SyntacticalNode(int symbol,std::string id_content):
+        id_content(id_content)
+        ,symbol(symbol){
+        }
+    SyntacticalNode(){}
+};
+
 class SyntacticalAnalyzer{
     public: 
-        
         SyntacticalAnalyzer(const InFileNames & in_file_names);
         virtual ~SyntacticalAnalyzer();
         bool is_correct(std::vector<std::pair<int,std::string> > & tokens);
-        void print_syntatical_table(std::function<void(std::string)> & f_out);
+        void print_syntatical_tree(std::function<void(std::string)> & f_out);
+        SyntacticalNode * get_syntatical_tree_root();
 
         static int end_symbol;
 
@@ -31,13 +44,6 @@ class SyntacticalAnalyzer{
             State(){}
         };
 
-        struct SyntacticalNode{
-            int symbol;
-            std::vector<SyntacticalNode*> adjacent; 
-            SyntacticalNode(int symbol):symbol(symbol){
-            }
-            SyntacticalNode(){}
-        };
 
         struct StackElement{
             bool is_state; //if false, it is a symbol;
@@ -49,6 +55,10 @@ class SyntacticalAnalyzer{
                     ///create node
                     node = new SyntacticalNode(element);
             }
+            StackElement(bool is_state,int element,std::string id_content):is_state(is_state),element(element){
+                if(!is_state)
+                    node = new SyntacticalNode(element,id_content);
+            }
             StackElement(){}
         };
 
@@ -59,7 +69,7 @@ class SyntacticalAnalyzer{
 
         std::pair<OpType,int> get_mov(int state,int symbol);
         bool handle_reduction(std::stack<StackElement*> & st,int rule_number);   
-        void print_syntatical_table(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level);
+        void print_syntatical_tree(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level);
 };
 
 #endif // SYNTACTICAL_ANALYZER_H
