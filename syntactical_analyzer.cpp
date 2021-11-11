@@ -156,7 +156,7 @@ void SyntacticalAnalyzer::print_syntatical_tree(std::function<void(std::string)>
 }
 
 void SyntacticalAnalyzer::print_syntatical_tree(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level){
-    f_out(std::string(level,'#')+" "+LexicalAnalyzer::symbol_lexval_to_name[node->symbol]+"\n");
+    f_out(std::string(level,'#')+" "+LexicalAnalyzer::symbol_lexval_to_name[node->symbol]+(node->id_node==NULL?"":" -> table index: "+std::to_string(node->id_node->index))+"\n");
     for(auto child : node->adjacent)
         print_syntatical_tree(child,f_out,level+1);
 }

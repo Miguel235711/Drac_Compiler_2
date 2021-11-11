@@ -18,7 +18,8 @@ auto cases_path_c_str = std::string("./cases/").c_str();
 int SyntacticalAnalyzer::end_symbol = 40;
 char subbuff[10000];
 std::unordered_map<int,std::string> LexicalAnalyzer::symbol_lexval_to_name;
-int LexicalAnalyzer::id_symbol = 1;
+int LexicalAnalyzer::id_symbol = 1,LexicalAnalyzer::curly_open = 24, LexicalAnalyzer::curly_close=25, LexicalAnalyzer::fun_def=-5;
+int IdNode::index_counter = 0;
 //int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 40;
 auto in_file_names = InFileNames("./syntactical_table.txt","./grammar.txt","./symbols.txt");
 
@@ -77,7 +78,7 @@ int main(int argc,char ** argv){
     //init syntatical analyzer
     SyntacticalAnalyzer syntactical_analyzer(in_file_names);
     //init semantical analyzer
-    SemanticalAnalyzer semantical_analyzer(syntactical_analyzer,{-6,-9},{-12},-6,-9);
+    SemanticalAnalyzer semantical_analyzer(syntactical_analyzer,{{-6,var_def},{-9,var_def},{-5,fun_def},{-12,ref}});
     out_files.open();
     auto lexical_f_out = out_files.get_func('l'), tree_f_out = out_files.get_func('t'), symbol_f_out = out_files.get_func('s');
     for(auto file_name: filenames){
@@ -102,10 +103,11 @@ int main(int argc,char ** argv){
         symbol_f_out(file_name+"\n");
         if(is_correct){
             ///print tree
+            semantical_analyzer.create_and_print_symbol_table_and_extend_syntactical_tree(symbol_f_out);
             syntactical_analyzer.print_syntatical_tree(tree_f_out);
-            semantical_analyzer.print_symbol_table(symbol_f_out);
         }
     }
     out_files.close();
+    std::cout << "End of compiler\n";
     return 0;
 }

@@ -13,17 +13,19 @@
 #include "op_type.h"
 #include "production_rule.h"
 #include "in_file_names.h"
+#include "id_node.h"
 
 struct SyntacticalNode{
     int symbol;
     std::vector<SyntacticalNode*> adjacent;
-    std::string id_content; //empty if 
+    std::string id_content; //empty if  ///this is repetitive because id_node has it
+    IdNode * id_node = NULL;
     SyntacticalNode(int symbol):symbol(symbol){
     }
     SyntacticalNode(int symbol,std::string id_content):
         id_content(id_content)
         ,symbol(symbol){
-        }
+    }
     SyntacticalNode(){}
 };
 
