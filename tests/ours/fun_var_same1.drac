@@ -1,0 +1,6 @@
+var main2;
+main2(){
+    var main,main2;
+    main2();
+    main2 = 3;
+}

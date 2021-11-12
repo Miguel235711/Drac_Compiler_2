@@ -78,7 +78,7 @@ int main(int argc,char ** argv){
     //init syntatical analyzer
     SyntacticalAnalyzer syntactical_analyzer(in_file_names);
     //init semantical analyzer
-    SemanticalAnalyzer semantical_analyzer(syntactical_analyzer,{{-6,var_def},{-9,var_def},{-5,fun_def},{-12,ref}});
+    SemanticalAnalyzer semantical_analyzer(syntactical_analyzer,{{-6,var_def},{-9,var_def},{-5,fun_def},{-12,var_ref},{-25,fun_ref}});
     out_files.open();
     auto lexical_f_out = out_files.get_func('l'), tree_f_out = out_files.get_func('t'), symbol_f_out = out_files.get_func('s');
     for(auto file_name: filenames){

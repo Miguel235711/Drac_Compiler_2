@@ -4,7 +4,7 @@
 #include <string>
 
     enum Mode{
-        var_def,fun_def,ref,none
+        var_def,fun_def,var_ref,fun_ref,none
     };
 
     struct IdNode{
