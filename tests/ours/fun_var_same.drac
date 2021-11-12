@@ -1,12 +1,19 @@
+var x;
+
+fun(y){
+    x = 3;
+}
+
 main(){
     main2 = 3; -- error here, and it should allow it
     main2(); -- error here, and it should allow it
 }
 var main;
 main(){
-    var main2;
+    var main2,main2;
 }
 var main2;
 main2(){
     var main2;
 }
+var main2;

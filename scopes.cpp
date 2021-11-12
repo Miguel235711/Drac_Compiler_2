@@ -46,7 +46,6 @@ bool Scopes::try_insert_in_scope(ScopeType scope_type,std::string name,IdNode * 
     auto it = target_symbol_track.find(name);
     if(it!=target_symbol_track.end()&&!it->second.empty()&&it->second.top()->scope==scope){
         //invalid, improve later
-        std::cout << "Error: redefinition of " << name << "\n";
         //assign found node
         id_node = it->second.top();
         return false;
