@@ -1,0 +1,14 @@
+.\tests\third_party\01.drac
+label: <id> content: main
+label: ( content: (
+label: ) content: )
+label: { content: {
+label: <id> content: prints
+label: ( content: (
+label: <lit-str> content: "hello, world\n"
+label: ) content: )
+label: ; content: ;
+label: return content: return
+label: <lit-int> content: 42
+label: ; content: ;
+label: } content: }
