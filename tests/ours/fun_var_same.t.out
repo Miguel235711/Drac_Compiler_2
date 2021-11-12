@@ -1,0 +1,149 @@
+.
+├── .\tests\ours\fun_var_same.drac
+└── <program>
+    └── <def-list>
+        ├── <def-list>
+        │   ├── <def-list>
+        │   │   ├── <def-list>
+        │   │   │   ├── <def-list>
+        │   │   │   │   ├── <def-list>
+        │   │   │   │   │   ├── <def-list>
+        │   │   │   │   │   │   ├── <def-list>
+        │   │   │   │   │   │   │   ├── <def-list>
+        │   │   │   │   │   │   │   └── <def>
+        │   │   │   │   │   │   │       └── <var-def>
+        │   │   │   │   │   │   │           ├── var
+        │   │   │   │   │   │   │           ├── <var-list>
+        │   │   │   │   │   │   │           │   └── <id-list>
+        │   │   │   │   │   │   │           │       ├── <id> -> table index: 0
+        │   │   │   │   │   │   │           │       └── <id-list-cont>
+        │   │   │   │   │   │   │           └── ;
+        │   │   │   │   │   │   └── <def>
+        │   │   │   │   │   │       └── <fun-def>
+        │   │   │   │   │   │           ├── <id> -> table index: 1
+        │   │   │   │   │   │           ├── (
+        │   │   │   │   │   │           ├── <param-list>
+        │   │   │   │   │   │           │   └── <id-list>
+        │   │   │   │   │   │           │       ├── <id> -> table index: 9
+        │   │   │   │   │   │           │       └── <id-list-cont>
+        │   │   │   │   │   │           ├── )
+        │   │   │   │   │   │           ├── {
+        │   │   │   │   │   │           ├── <var-def-list>
+        │   │   │   │   │   │           ├── <stmt-list>
+        │   │   │   │   │   │           │   ├── <stmt-list>
+        │   │   │   │   │   │           │   └── <stmt>
+        │   │   │   │   │   │           │       └── <stmt-assign>
+        │   │   │   │   │   │           │           ├── <id> -> table index: 0
+        │   │   │   │   │   │           │           ├── =
+        │   │   │   │   │   │           │           ├── <expr>
+        │   │   │   │   │   │           │           │   └── <expr-or>
+        │   │   │   │   │   │           │           │       └── <expr-and>
+        │   │   │   │   │   │           │           │           └── <expr-comp>
+        │   │   │   │   │   │           │           │               └── <expr-rel>
+        │   │   │   │   │   │           │           │                   └── <expr-add>
+        │   │   │   │   │   │           │           │                       └── <expr-mul>
+        │   │   │   │   │   │           │           │                           └── <expr-unary>
+        │   │   │   │   │   │           │           │                               └── <expr-primary>
+        │   │   │   │   │   │           │           │                                   └── <lit>
+        │   │   │   │   │   │           │           │                                       └── <lit-int>
+        │   │   │   │   │   │           │           └── ;
+        │   │   │   │   │   │           └── }
+        │   │   │   │   │   └── <def>
+        │   │   │   │   │       └── <fun-def>
+        │   │   │   │   │           ├── <id> -> table index: 3
+        │   │   │   │   │           ├── (
+        │   │   │   │   │           ├── <param-list>
+        │   │   │   │   │           ├── )
+        │   │   │   │   │           ├── {
+        │   │   │   │   │           ├── <var-def-list>
+        │   │   │   │   │           ├── <stmt-list>
+        │   │   │   │   │           │   ├── <stmt-list>
+        │   │   │   │   │           │   │   ├── <stmt-list>
+        │   │   │   │   │           │   │   └── <stmt>
+        │   │   │   │   │           │   │       └── <stmt-assign>
+        │   │   │   │   │           │   │           ├── <id> -> table index: 6
+        │   │   │   │   │           │   │           ├── =
+        │   │   │   │   │           │   │           ├── <expr>
+        │   │   │   │   │           │   │           │   └── <expr-or>
+        │   │   │   │   │           │   │           │       └── <expr-and>
+        │   │   │   │   │           │   │           │           └── <expr-comp>
+        │   │   │   │   │           │   │           │               └── <expr-rel>
+        │   │   │   │   │           │   │           │                   └── <expr-add>
+        │   │   │   │   │           │   │           │                       └── <expr-mul>
+        │   │   │   │   │           │   │           │                           └── <expr-unary>
+        │   │   │   │   │           │   │           │                               └── <expr-primary>
+        │   │   │   │   │           │   │           │                                   └── <lit>
+        │   │   │   │   │           │   │           │                                       └── <lit-int>
+        │   │   │   │   │           │   │           └── ;
+        │   │   │   │   │           │   └── <stmt>
+        │   │   │   │   │           │       └── <stmt-fun-call>
+        │   │   │   │   │           │           ├── <fun-call>
+        │   │   │   │   │           │           │   ├── <id> -> table index: 7
+        │   │   │   │   │           │           │   ├── (
+        │   │   │   │   │           │           │   ├── <expr-list>
+        │   │   │   │   │           │           │   └── )
+        │   │   │   │   │           │           └── ;
+        │   │   │   │   │           └── }
+        │   │   │   │   └── <def>
+        │   │   │   │       └── <var-def>
+        │   │   │   │           ├── var
+        │   │   │   │           ├── <var-list>
+        │   │   │   │           │   └── <id-list>
+        │   │   │   │           │       ├── <id> -> table index: 4
+        │   │   │   │           │       └── <id-list-cont>
+        │   │   │   │           └── ;
+        │   │   │   └── <def>
+        │   │   │       └── <fun-def>
+        │   │   │           ├── <id> -> table index: 3
+        │   │   │           ├── (
+        │   │   │           ├── <param-list>
+        │   │   │           ├── )
+        │   │   │           ├── {
+        │   │   │           ├── <var-def-list>
+        │   │   │           │   ├── <var-def-list>
+        │   │   │           │   └── <var-def>
+        │   │   │           │       ├── var
+        │   │   │           │       ├── <var-list>
+        │   │   │           │       │   └── <id-list>
+        │   │   │           │       │       ├── <id> -> table index: 10
+        │   │   │           │       │       └── <id-list-cont>
+        │   │   │           │       │           ├── ,
+        │   │   │           │       │           ├── <id> -> table index: 10
+        │   │   │           │       │           └── <id-list-cont>
+        │   │   │           │       └── ;
+        │   │   │           ├── <stmt-list>
+        │   │   │           └── }
+        │   │   └── <def>
+        │   │       └── <var-def>
+        │   │           ├── var
+        │   │           ├── <var-list>
+        │   │           │   └── <id-list>
+        │   │           │       ├── <id> -> table index: 6
+        │   │           │       └── <id-list-cont>
+        │   │           └── ;
+        │   └── <def>
+        │       └── <fun-def>
+        │           ├── <id> -> table index: 7
+        │           ├── (
+        │           ├── <param-list>
+        │           ├── )
+        │           ├── {
+        │           ├── <var-def-list>
+        │           │   ├── <var-def-list>
+        │           │   └── <var-def>
+        │           │       ├── var
+        │           │       ├── <var-list>
+        │           │       │   └── <id-list>
+        │           │       │       ├── <id> -> table index: 11
+        │           │       │       └── <id-list-cont>
+        │           │       └── ;
+        │           ├── <stmt-list>
+        │           └── }
+        └── <def>
+            └── <var-def>
+                ├── var
+                ├── <var-list>
+                │   └── <id-list>
+                │       ├── <id> -> table index: 6
+                │       └── <id-list-cont>
+                └── ;

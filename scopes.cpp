@@ -51,7 +51,7 @@ bool Scopes::try_insert_in_scope(ScopeType scope_type,std::string name,IdNode * 
         return false;
     }
     //insert in corresponding scope
-    std::cout << "try_insert_in_scopes\n";
+    //std::cout << "try_insert_in_scopes\n";
     id_node = new IdNode(target_scope.first,scope_type==var_index ? var_def : fun_def,name);
     id_node->scope=target_scope.first;
     target_scope.second.insert(id_node->name);

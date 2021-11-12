@@ -12,7 +12,7 @@ void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tr
     Scopes scopes;
     ///transverse globally and then (globally and locally)
     create_and_print_symbol_table_and_extend_syntactical_tree(syntactical_tree_root,NULL,f_out,none,scopes,true); //mode -> does not matter initial value but could be dangerous because it depends on the grammar
-    std::cout << "var_scopes(): " << scopes.var_scopes() << "\n";
+    //std::cout << "var_scopes(): " << scopes.var_scopes() << "\n";
     create_and_print_symbol_table_and_extend_syntactical_tree(syntactical_tree_root,NULL,f_out,none,scopes,false);
 }
 void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tree(SyntacticalNode * node,SyntacticalNode * parent,std::function<void(std::string)> & f_out,Mode mode,Scopes & scopes,bool is_global_transverse){
@@ -41,9 +41,10 @@ void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tr
             //std::cout << "mode: " << mode << " index: " << index << "\n";
             auto was_insertion_successful = (!is_global_transverse && (scopes.var_scopes()==1||mode == fun_def)) || scopes.try_insert_in_scope(index,content,id_node); //special case for globality handling . Dangerous!!!
             if((scopes.var_scopes()==1||mode == fun_def)^!is_global_transverse){
-                if(was_insertion_successful)
-                    std::cout << "type: " << ( id_node->id_type  == var_def ? "var" : "fun" ) << " scope: " << id_node->scope << " name: " << id_node->name << " index: " << id_node->index << "\n";
-                else
+                if(was_insertion_successful){
+                    std::string s = id_node->id_type  == var_def ? "var" : "fun";
+                    f_out("type: "+s+" scope: "+std::to_string(id_node->scope)+" name: "+id_node->name+" index: "+std::to_string(id_node->index)+"\n");
+                }else
                     std::cout << "Error: redefinition of " << content << "\n";
             }
             //std::cout << "insert in scope\n";

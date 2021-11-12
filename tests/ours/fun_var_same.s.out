@@ -1,0 +1,10 @@
+.\tests\ours\fun_var_same.drac
+type: var scope: 1 name: x index: 0
+type: fun scope: 0 name: fun index: 1
+type: fun scope: 0 name: main index: 3
+type: var scope: 1 name: main index: 4
+type: var scope: 1 name: main2 index: 6
+type: fun scope: 0 name: main2 index: 7
+type: var scope: 6 name: y index: 9
+type: var scope: 8 name: main2 index: 10
+type: var scope: 9 name: main2 index: 11

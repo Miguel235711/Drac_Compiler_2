@@ -5,15 +5,15 @@ fun(y){
 }
 
 main(){
-    main2 = 3; -- error here, and it should allow it
-    main2(); -- error here, and it should allow it
+    main2 = 3;
+    main2();
 }
 var main;
-main(){
-    var main2,main2;
+main(){ -- error, should fail because of redefinition
+    var main2,main2; -- 2° main2 should fail because of redefinition
 }
 var main2;
 main2(){
     var main2;
 }
-var main2;
+var main2;-- error, should fail because of redefinition
