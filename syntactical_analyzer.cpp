@@ -96,7 +96,7 @@ bool SyntacticalAnalyzer::is_correct(std::vector<std::pair<int,std::string> > & 
             }else{
                 auto last_to_push = new StackElement(true,mov.second);
                 if(mov.first == Shift){
-                    st.push(new StackElement(false,token.first));
+                    st.push(token.first == LexicalAnalyzer::id_symbol ?  new StackElement(false,token.first,token.second) : new StackElement(false,token.first)); ///could be terminal symbol
                     st.push(last_to_push);                   
                     break;
                 }else{
@@ -150,13 +150,17 @@ bool SyntacticalAnalyzer::handle_reduction(std::stack<StackElement*> & st,int ru
 }  
 
 
-void SyntacticalAnalyzer::print_syntatical_table(std::function<void(std::string)> & f_out){
+void SyntacticalAnalyzer::print_syntatical_tree(std::function<void(std::string)> & f_out){
     //f_out("# <program>\n");
-    print_syntatical_table(parent_stack_element->node,f_out,1);
+    print_syntatical_tree(parent_stack_element->node,f_out,1);
 }
 
-void SyntacticalAnalyzer::print_syntatical_table(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level){
-    f_out(std::string(level,'#')+" "+LexicalAnalyzer::symbol_lexval_to_name[node->symbol]+"\n");
+void SyntacticalAnalyzer::print_syntatical_tree(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level){
+    f_out(std::string(level,'#')+" "+LexicalAnalyzer::symbol_lexval_to_name[node->symbol]+(node->id_node==NULL?"":" -> table index: "+std::to_string(node->id_node->index))+"\n");
     for(auto child : node->adjacent)
-        print_syntatical_table(child,f_out,level+1);
+        print_syntatical_tree(child,f_out,level+1);
+}
+
+SyntacticalNode * SyntacticalAnalyzer::get_syntatical_tree_root(){
+    return parent_stack_element->node;
 }

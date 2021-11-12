@@ -1,7 +1,7 @@
 .\tests\ours\0.drac
 # <program>
 ## <def-list>
-.\tests\ours\1.drac
+.\tests\ours\redef_var_error_.drac
 # <program>
 ## <def-list>
 ### <def-list>
@@ -30,4 +30,3 @@
 ########## <id>
 ########## <id-list-cont>
 ####### ;
-##### <stmt-list>

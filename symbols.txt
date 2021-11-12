@@ -19,7 +19,7 @@
 -26 <expr-list>
 -25 <fun-call>
 -24 <expr>
--23<stmt-assign> 
+-23 <stmt-assign>
 -22 <stmt-empty>
 -21 <stmt-return>
 -20 <stmt-break>
