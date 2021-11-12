@@ -1,0 +1,52 @@
+.
+├── .\tests\third_party\01.drac
+└── <program>
+    └── <def-list>
+        ├── <def-list>
+        └── <def>
+            └── <fun-def>
+                ├── <id>
+                ├── (
+                ├── <param-list>
+                ├── )
+                ├── {
+                ├── <var-def-list>
+                ├── <stmt-list>
+                │   ├── <stmt-list>
+                │   │   ├── <stmt-list>
+                │   │   └── <stmt>
+                │   │       └── <stmt-fun-call>
+                │   │           ├── <fun-call>
+                │   │           │   ├── <id>
+                │   │           │   ├── (
+                │   │           │   ├── <expr-list>
+                │   │           │   │   ├── <expr>
+                │   │           │   │   │   └── <expr-or>
+                │   │           │   │   │       └── <expr-and>
+                │   │           │   │   │           └── <expr-comp>
+                │   │           │   │   │               └── <expr-rel>
+                │   │           │   │   │                   └── <expr-add>
+                │   │           │   │   │                       └── <expr-mul>
+                │   │           │   │   │                           └── <expr-unary>
+                │   │           │   │   │                               └── <expr-primary>
+                │   │           │   │   │                                   └── <lit>
+                │   │           │   │   │                                       └── <lit-str>
+                │   │           │   │   └── <expr-list-cont>
+                │   │           │   └── )
+                │   │           └── ;
+                │   └── <stmt>
+                │       └── <stmt-return>
+                │           ├── return
+                │           ├── <expr>
+                │           │   └── <expr-or>
+                │           │       └── <expr-and>
+                │           │           └── <expr-comp>
+                │           │               └── <expr-rel>
+                │           │                   └── <expr-add>
+                │           │                       └── <expr-mul>
+                │           │                           └── <expr-unary>
+                │           │                               └── <expr-primary>
+                │           │                                   └── <lit>
+                │           │                                       └── <lit-int>
+                │           └── ;
+                └── }
