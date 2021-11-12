@@ -79,18 +79,21 @@ int main(int argc,char ** argv){
     //init syntatical analyzer
     SyntacticalAnalyzer syntactical_analyzer(in_file_names);
     //init semantical analyzer
-    SemanticalAnalyzer semantical_analyzer(syntactical_analyzer,{{-6,var_def},{-9,var_def},{-5,fun_def},{-12,var_ref},{-25,fun_ref}});
+    SemanticalAnalyzer semantical_analyzer(syntactical_analyzer,{{-6,var_def},{-9,var_def},{-5,fun_def},{-12,var_ref},{-25,fun_ref},{-26,var_ref}});
     out_files.open();
     auto lexical_f_out = out_files.get_func('l'), tree_f_out = out_files.get_func('t'), symbol_f_out = out_files.get_func('s');
     for(auto file_name: filenames){
         std::vector<Token> tokens;
+        bool failure = false;
         if(!lexical_analyzer.get_tokens(file_name,tokens)){
-            (std::to_string(lexical_analyzer.get_line())+":"+std::to_string(lexical_analyzer.get_column())+" Token "+lexical_analyzer.get_last_token()+" is not valid\n");
-            return EXIT_FAILURE;
+            lexical_f_out(std::to_string(lexical_analyzer.get_line())+":"+std::to_string(lexical_analyzer.get_column())+" Token "+lexical_analyzer.get_last_token()+" is not valid\n");
+            failure = true;
         }
         lexical_f_out(file_name+"\n");
         for(auto token: tokens)
             lexical_f_out("label: "+LexicalAnalyzer::symbol_lexval_to_name[token.label]+" content: "+token.content+" line: "+std::to_string(token.location.first)+" col: "+std::to_string(token.location.second)+"\n");
+        if(failure)
+            return EXIT_FAILURE;
         ///
         //add 
         tokens.push_back(Token(SyntacticalAnalyzer::end_symbol,"",{-1,-1})); // special symbol for syntactical analysis

@@ -19,7 +19,7 @@ void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tr
     ///API functions end
     ///transverse globally and then (globally and locally)
     create_and_print_symbol_table_and_extend_syntactical_tree(syntactical_tree_root,NULL,f_out,none,scopes,true); //mode -> does not matter initial value but could be dangerous because it depends on the grammar
-    //std::cout << "var_scopes(): " << scopes.var_scopes() << "\n";
+    //std::cout << "finished first semantic: " << "var_scopes(): " << scopes.var_scopes() << "\n";
     create_and_print_symbol_table_and_extend_syntactical_tree(syntactical_tree_root,NULL,f_out,none,scopes,false);
 }
 void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tree(SyntacticalNode * node,SyntacticalNode * parent,std::function<void(std::string)> & f_out,Mode mode,Scopes & scopes,bool is_global_transverse){
@@ -56,6 +56,7 @@ void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tr
             //std::cout << "insert in scope\n";
         }else if(mode == fun_ref || mode == var_ref){
             //find
+            //std::cout << "index in find: " << index << "\n";
             auto id_node= scopes.get_lca_symbol(content,index);
             if(id_node == NULL&&!is_global_transverse) ///on global transverse don't display this
                 std::cout << node->location.first << ":" << node->location.second << ":Error: " << content << " is not defined\n";

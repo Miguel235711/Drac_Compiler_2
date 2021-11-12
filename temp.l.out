@@ -1,0 +1,14 @@
+.\tests\ours\redef_var_error_.drac
+label: <id> content: main line: 1 col: 4
+label: ( content: ( line: 1 col: 5
+label: <id> content: a line: 1 col: 6
+label: , content: , line: 1 col: 7
+label: <id> content: a line: 1 col: 8
+label: ) content: ) line: 1 col: 9
+label: { content: { line: 1 col: 11
+label: var content: var line: 2 col: 7
+label: <id> content: x line: 2 col: 9
+label: , content: , line: 2 col: 10
+label: <id> content: y line: 2 col: 11
+label: ; content: ; line: 2 col: 12
+label: } content: } line: 3 col: 1

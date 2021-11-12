@@ -11,16 +11,20 @@ Scopes::~Scopes(){
 }
 
 IdNode * Scopes::get_lca_symbol(std::string name,ScopeType scope_type){
+    //std::cout << "get_lca_symbol name: " << name << "scope type: " << scope_type << "\n";
     auto & symbol_track_focus = symbol_track[scope_type];
     auto it = symbol_track_focus.find(name);
-    if(it==symbol_track_focus.end())
+    if(it==symbol_track_focus.end()){
+        //std::cout << "not found\n";
         return NULL;
+    }
     assert(!it->second.empty());
     return it->second.top();
 }
 
 void Scopes::open_var_scope(){
     auto & target_scopes_and_entries = scopes_and_entries[var_index];
+    //std::cout << "scope_counter: " << scope_counter << "\n";
     target_scopes_and_entries.push({scope_counter++,std::unordered_set<std::string>()});
 }
 void Scopes::close_var_scope(){
@@ -30,9 +34,12 @@ void Scopes::close_var_scope(){
     assert(!target_scopes_and_entries.empty());
     auto & target_scope = target_scopes_and_entries.top();
     auto scope = target_scope.first;
+    //std::cout << "closing scope " << scope << "\n";
     for(auto & name: target_scope.second){
         auto & symbol_track_name = target_symbol_track[name];
-        for(;!symbol_track_name.empty()&&symbol_track_name.top()->scope==scope;symbol_track_name.pop());
+        for(;!symbol_track_name.empty()&&symbol_track_name.top()->scope==scope;symbol_track_name.pop()){
+            //std::cout << "poping: " << symbol_track_name.top()->name << "\n";
+        }
     }
     target_scopes_and_entries.pop();
 }
@@ -52,6 +59,7 @@ bool Scopes::try_insert_in_scope(ScopeType scope_type,std::string name,IdNode * 
     }
     //insert in corresponding scope
     //std::cout << "try_insert_in_scopes\n";
+    //std::cout << "insertion: " << name << "\n";
     id_node = new IdNode(target_scope.first,scope_type==var_index ? var_def : fun_def,name);
     id_node->scope=target_scope.first;
     target_scope.second.insert(id_node->name);

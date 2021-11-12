@@ -1,0 +1,32 @@
+.
+├── .\tests\ours\redef_var_error_.drac
+└── <program>
+    └── <def-list>
+        ├── <def-list>
+        └── <def>
+            └── <fun-def>
+                ├── <id> -> table index: 11
+                ├── (
+                ├── <param-list>
+                │   └── <id-list>
+                │       ├── <id> -> table index: 15
+                │       └── <id-list-cont>
+                │           ├── ,
+                │           ├── <id> -> table index: 15
+                │           └── <id-list-cont>
+                ├── )
+                ├── {
+                ├── <var-def-list>
+                │   ├── <var-def-list>
+                │   └── <var-def>
+                │       ├── var
+                │       ├── <var-list>
+                │       │   └── <id-list>
+                │       │       ├── <id> -> table index: 16
+                │       │       └── <id-list-cont>
+                │       │           ├── ,
+                │       │           ├── <id> -> table index: 17
+                │       │           └── <id-list-cont>
+                │       └── ;
+                ├── <stmt-list>
+                └── }

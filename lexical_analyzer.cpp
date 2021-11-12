@@ -15,17 +15,17 @@ int LexicalAnalyzer::get_column(){
 bool LexicalAnalyzer::handle_char(char c,std::vector<Token> & tokens,std::ifstream & in){
     if(c=='\n'||c=='\r'){
         line++,l_col=col,col=0;
-        std::cout << "line++ " << " line= " << line << "\n" ;
+        //std::cout << "line++ " << " line= " << line << "\n" ;
     }else{ 
         col++;
-        std::cout << "c: *" << c  << "* col=" << col << "\n";
+        //std::cout << "c: *" << c  << "* col=" << col << "\n";
     }
     if(automata.next(c))
         token.push_back(c);
     else{
         in.unget();
         if(c=='\n'||c=='\r'){
-            std::cout << "line--\n";
+            //std::cout << "line--\n";
             line--,col=l_col;
         }else{
             col--;
