@@ -47,11 +47,15 @@ SyntacticalAnalyzer::SyntacticalAnalyzer(const InFileNames & in_file_names){
         }
     }
     in.close();
+
+    ///handler for errors
+
+    incomplete_production_handler = new IncompleteProductionHandler(rules);
 }
 SyntacticalAnalyzer::~SyntacticalAnalyzer(){
 
 }
-bool SyntacticalAnalyzer::is_correct(std::vector<std::pair<int,std::string> > & tokens){
+bool SyntacticalAnalyzer::is_correct(std::vector<Token> & tokens){
     std::stack<StackElement*> st;
     st.push(new StackElement(true,0));
     //std::cout << "what\n";
@@ -64,7 +68,7 @@ bool SyntacticalAnalyzer::is_correct(std::vector<std::pair<int,std::string> > & 
             std::pair<OpType,int> mov;
             if(x->is_state){
                 ///stack , token
-                mov = get_mov(x->element,token.first);
+                mov = get_mov(x->element,token.label);
             }else{
                 ///stack, stack
                 st.pop();
@@ -86,6 +90,22 @@ bool SyntacticalAnalyzer::is_correct(std::vector<std::pair<int,std::string> > & 
             }
             if(mov.first == None){
                 //syntatical error
+                std::cout << "not found syntax error\n";
+                //incomplete production, pop until finding non-terminal-symbol and
+                incomplete_production_handler->restart();
+                for(;!st.empty();st.pop())
+                    if(!st.top()->is_state){
+                        //analyze
+                        if(!incomplete_production_handler->next(st.top()->element))
+                            break;
+                    }
+                std::cout << token.location.first << ":" << token.location.second << ":Error: Missing token, candidates: "; 
+                auto candidates = incomplete_production_handler->closest_rule_expected_next_token();
+                for(auto candidate: candidates){
+                    std::cout << candidate << " ";
+                }
+                std::cout << "\n";
+                //std::cout << "element: " << st.top()->element << "is_state?: " << st.top()->is_state << "\n";
                 return false;
             }
             if(mov.first == Reduction){
@@ -96,7 +116,7 @@ bool SyntacticalAnalyzer::is_correct(std::vector<std::pair<int,std::string> > & 
             }else{
                 auto last_to_push = new StackElement(true,mov.second);
                 if(mov.first == Shift){
-                    st.push(token.first == LexicalAnalyzer::id_symbol ?  new StackElement(false,token.first,token.second) : new StackElement(false,token.first)); ///could be terminal symbol
+                    st.push(token.label == LexicalAnalyzer::id_symbol ?  new StackElement(false,token.label,token.content,token.location) : new StackElement(false,token.label)); ///could be terminal symbol
                     st.push(last_to_push);                   
                     break;
                 }else{

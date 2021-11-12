@@ -15,5 +15,6 @@ main(){ -- error, should fail because of redefinition
 var main2;
 main2(){
     var main2;
+    x = 3 + e; -- error of undefined
 }
 var main2;-- error, should fail because of redefinition

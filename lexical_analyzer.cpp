@@ -12,22 +12,29 @@ int LexicalAnalyzer::get_line(){
 int LexicalAnalyzer::get_column(){
     return col;
 }
-bool LexicalAnalyzer::handle_char(char c,std::vector<std::pair<int,std::string> > & tokens,std::ifstream & in){
-    if(c=='\n'||c=='\r')
+bool LexicalAnalyzer::handle_char(char c,std::vector<Token> & tokens,std::ifstream & in){
+    if(c=='\n'||c=='\r'){
         line++,l_col=col,col=0;
-    else 
+        std::cout << "line++ " << " line= " << line << "\n" ;
+    }else{ 
         col++;
+        std::cout << "c: *" << c  << "* col=" << col << "\n";
+    }
     if(automata.next(c))
         token.push_back(c);
     else{
         in.unget();
-        if(c=='\n'||c=='\r')
+        if(c=='\n'||c=='\r'){
+            std::cout << "line--\n";
             line--,col=l_col;
+        }else{
+            col--;
+        }
         if(automata.in_token()){
             //token found
             int label = automata.get_token_label();
             if(label)
-                tokens.push_back({label,token});
+                tokens.push_back(Token(label,token,{line,col}));
             automata.restart();
         }else{
             if(!isspace(c))
@@ -39,7 +46,7 @@ bool LexicalAnalyzer::handle_char(char c,std::vector<std::pair<int,std::string> 
     }
     return true;
 }
-bool LexicalAnalyzer::get_tokens(const std::string & in_file_name,std::vector<std::pair<int,std::string> > & tokens){
+bool LexicalAnalyzer::get_tokens(const std::string & in_file_name,std::vector<Token> & tokens){
     std::ifstream in(in_file_name);
     line=1;
     char c;

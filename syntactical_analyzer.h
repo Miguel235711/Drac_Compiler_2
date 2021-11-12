@@ -14,29 +14,35 @@
 #include "production_rule.h"
 #include "in_file_names.h"
 #include "id_node.h"
+#include "token.h"
+#include "incomplete_production_handler.h"
+
+
 
 struct SyntacticalNode{
     int symbol;
     std::vector<SyntacticalNode*> adjacent;
     std::string id_content; //empty if  ///this is repetitive because id_node has it
     IdNode * id_node = NULL;
+    std::pair<int,int> location = {-1,-1};
     SyntacticalNode(int symbol):symbol(symbol){
     }
-    SyntacticalNode(int symbol,std::string id_content):
+    SyntacticalNode(int symbol,std::string id_content,std::pair<int,int> location):
         id_content(id_content)
-        ,symbol(symbol){
+        ,symbol(symbol)
+        ,location(location){
+
     }
-    SyntacticalNode(){}
 };
 
 class SyntacticalAnalyzer{
     public: 
         SyntacticalAnalyzer(const InFileNames & in_file_names);
         virtual ~SyntacticalAnalyzer();
-        bool is_correct(std::vector<std::pair<int,std::string> > & tokens);
+        bool is_correct(std::vector<Token> & tokens);
         void print_syntatical_tree(std::function<void(std::string)> & f_out);
         SyntacticalNode * get_syntatical_tree_root();
-
+        
         static int end_symbol;
 
     private:
@@ -57,9 +63,9 @@ class SyntacticalAnalyzer{
                     ///create node
                     node = new SyntacticalNode(element);
             }
-            StackElement(bool is_state,int element,std::string id_content):is_state(is_state),element(element){
+            StackElement(bool is_state,int element,std::string id_content,std::pair<int,int> location):is_state(is_state),element(element){
                 if(!is_state)
-                    node = new SyntacticalNode(element,id_content);
+                    node = new SyntacticalNode(element,id_content,location);
             }
             StackElement(){}
         };
@@ -68,6 +74,7 @@ class SyntacticalAnalyzer{
         std::vector<ProductionRule*> rules;
         
         StackElement * parent_stack_element;
+        IncompleteProductionHandler * incomplete_production_handler;
 
         std::pair<OpType,int> get_mov(int state,int symbol);
         bool handle_reduction(std::stack<StackElement*> & st,int rule_number);   

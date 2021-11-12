@@ -12,6 +12,7 @@
 #include "production_rule.h"
 #include "out_files.h"
 #include "in_file_names.h"
+#include "token.h"
 
 bool testing = false;
 auto cases_path_c_str = std::string("./cases/").c_str();
@@ -82,17 +83,17 @@ int main(int argc,char ** argv){
     out_files.open();
     auto lexical_f_out = out_files.get_func('l'), tree_f_out = out_files.get_func('t'), symbol_f_out = out_files.get_func('s');
     for(auto file_name: filenames){
-        std::vector<std::pair<int,std::string> > tokens;
+        std::vector<Token> tokens;
         if(!lexical_analyzer.get_tokens(file_name,tokens)){
             (std::to_string(lexical_analyzer.get_line())+":"+std::to_string(lexical_analyzer.get_column())+" Token "+lexical_analyzer.get_last_token()+" is not valid\n");
             return EXIT_FAILURE;
         }
         lexical_f_out(file_name+"\n");
         for(auto token: tokens)
-            lexical_f_out("label: "+LexicalAnalyzer::symbol_lexval_to_name[token.first]+" content: "+token.second+"\n");
+            lexical_f_out("label: "+LexicalAnalyzer::symbol_lexval_to_name[token.label]+" content: "+token.content+" line: "+std::to_string(token.location.first)+" col: "+std::to_string(token.location.second)+"\n");
         ///
         //add 
-        tokens.push_back({SyntacticalAnalyzer::end_symbol,""}); // special symbol for syntactical analysis
+        tokens.push_back(Token(SyntacticalAnalyzer::end_symbol,"",{-1,-1})); // special symbol for syntactical analysis
         bool is_correct = syntactical_analyzer.is_correct(tokens);
         std::cout << file_name << "\n";
         std::string preffix_msg = is_correct ? "Correct" : "Incorrect";

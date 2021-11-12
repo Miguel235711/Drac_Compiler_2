@@ -10,6 +10,13 @@ SemanticalAnalyzer::~SemanticalAnalyzer(){
 void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tree(std::function<void(std::string)> & f_out){
     syntactical_tree_root = syntactical_analyzer.get_syntatical_tree_root();
     Scopes scopes;
+    ///API functions begin
+    for(auto & API_function : API_functions){
+        IdNode * node;
+        scopes.try_insert_in_scope(fun_index,API_function,node);
+        print_table_entry(node,f_out);
+    }
+    ///API functions end
     ///transverse globally and then (globally and locally)
     create_and_print_symbol_table_and_extend_syntactical_tree(syntactical_tree_root,NULL,f_out,none,scopes,true); //mode -> does not matter initial value but could be dangerous because it depends on the grammar
     //std::cout << "var_scopes(): " << scopes.var_scopes() << "\n";
@@ -42,17 +49,16 @@ void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tr
             auto was_insertion_successful = (!is_global_transverse && (scopes.var_scopes()==1||mode == fun_def)) || scopes.try_insert_in_scope(index,content,id_node); //special case for globality handling . Dangerous!!!
             if((scopes.var_scopes()==1||mode == fun_def)^!is_global_transverse){
                 if(was_insertion_successful){
-                    std::string s = id_node->id_type  == var_def ? "var" : "fun";
-                    f_out("type: "+s+" scope: "+std::to_string(id_node->scope)+" name: "+id_node->name+" index: "+std::to_string(id_node->index)+"\n");
+                    print_table_entry(id_node,f_out);
                 }else
-                    std::cout << "Error: redefinition of " << content << "\n";
+                    std::cout << node->location.first << ":" << node->location.second << ":Error: redefinition of " << content << "\n";
             }
             //std::cout << "insert in scope\n";
         }else if(mode == fun_ref || mode == var_ref){
             //find
             auto id_node= scopes.get_lca_symbol(content,index);
             if(id_node == NULL&&!is_global_transverse) ///on global transverse don't display this
-                std::cout << "Error: " << content << " is not defined\n";
+                std::cout << node->location.first << ":" << node->location.second << ":Error: " << content << " is not defined\n";
             else
                 node->id_node = id_node;
         }
@@ -68,4 +74,9 @@ Mode SemanticalAnalyzer::assign_mode(SyntacticalNode * node,Mode cur_mode){
     if(it!=special_symbols.end())
         return it->second;
     return cur_mode;
+}
+
+void SemanticalAnalyzer::print_table_entry(IdNode * id_node,std::function<void(std::string)> & f_out){
+    std::string s = id_node->id_type  == var_def ? "var" : "fun";
+    f_out("type: "+s+" scope: "+std::to_string(id_node->scope)+" name: "+id_node->name+" index: "+std::to_string(id_node->index)+"\n");
 }
