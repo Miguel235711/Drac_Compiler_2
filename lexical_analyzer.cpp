@@ -18,6 +18,8 @@ bool LexicalAnalyzer::valid_lit_int(const std::string & lit_int){
     // for(;i<lit_int.size() && lit_int[i]=='0';i++);
     // auto lit_int_value = lit_int.substr(i,lit_int.size()-i);
     // return lit_int_value <= (is_neg ? max_neg_abs_value : max_pos_abs_value);
+    if(lit_int.size()>11)
+        return false;
     char* pEnd;
     int64_t x = strtoll(lit_int.c_str(),&pEnd,10);
     return min_value<=x&&x<=max_value;

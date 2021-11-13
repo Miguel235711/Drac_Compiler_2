@@ -1,0 +1,19 @@
+.\tests\third_party\with_proper_names\003_palindrome.drac
+type: fun scope: 0 name: printi index: 0
+type: fun scope: 0 name: printc index: 1
+type: fun scope: 0 name: prints index: 2
+type: fun scope: 0 name: println index: 3
+type: fun scope: 0 name: readi index: 4
+type: fun scope: 0 name: reads index: 5
+type: fun scope: 0 name: new index: 6
+type: fun scope: 0 name: size index: 7
+type: fun scope: 0 name: add index: 8
+type: fun scope: 0 name: get index: 9
+type: fun scope: 0 name: set index: 10
+type: fun scope: 0 name: is_palindrome index: 11
+type: fun scope: 0 name: main index: 15
+type: var scope: 18 name: str index: 18
+type: var scope: 18 name: start index: 19
+type: var scope: 18 name: finish index: 20
+type: var scope: 24 name: str index: 21
+type: var scope: 24 name: option index: 22

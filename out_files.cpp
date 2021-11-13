@@ -16,7 +16,7 @@ bool OutFiles::is_flag_valid(char flag){
     return flags.find(flag)!=flags.end();
 }
 void OutFiles::open(){
-    std::cout << out_type_to_file_name.size() << "\n";
+    //std::cout << out_type_to_file_name.size() << "\n";
     for(auto out_type_and_file_name: out_type_to_file_name){
         auto file_name =  out_type_and_file_name.second;
         const auto flag = out_type_and_file_name.first;

@@ -1,0 +1,14 @@
+.\tests\third_party\with_proper_names\001_hello.drac
+label: <id> content: main line: 6 col: 4
+label: ( content: ( line: 6 col: 5
+label: ) content: ) line: 6 col: 6
+label: { content: { line: 6 col: 8
+label: <id> content: prints line: 7 col: 10
+label: ( content: ( line: 7 col: 11
+label: <lit-str> content: "hello, world\n" line: 7 col: 27
+label: ) content: ) line: 7 col: 28
+label: ; content: ; line: 7 col: 29
+label: return content: return line: 8 col: 10
+label: <lit-int> content: 42 line: 8 col: 13
+label: ; content: ; line: 8 col: 14
+label: } content: } line: 9 col: 1
