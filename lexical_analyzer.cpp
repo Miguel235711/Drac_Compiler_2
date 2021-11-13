@@ -12,6 +12,16 @@ int LexicalAnalyzer::get_line(){
 int LexicalAnalyzer::get_column(){
     return col;
 }
+bool LexicalAnalyzer::valid_lit_int(const std::string & lit_int){
+    // bool is_neg = lit_int[0]=='-';
+    // int i = is_neg;
+    // for(;i<lit_int.size() && lit_int[i]=='0';i++);
+    // auto lit_int_value = lit_int.substr(i,lit_int.size()-i);
+    // return lit_int_value <= (is_neg ? max_neg_abs_value : max_pos_abs_value);
+    char* pEnd;
+    int64_t x = strtoll(lit_int.c_str(),&pEnd,10);
+    return min_value<=x&&x<=max_value;
+}
 bool LexicalAnalyzer::handle_char(char c,std::vector<Token> & tokens,std::ifstream & in){
     if(c=='\n'||c=='\r'){
         line++,l_col=col,col=0;
@@ -33,8 +43,22 @@ bool LexicalAnalyzer::handle_char(char c,std::vector<Token> & tokens,std::ifstre
         if(automata.in_token()){
             //token found
             int label = automata.get_token_label();
-            if(label)
-                tokens.push_back(Token(label,token,{line,col}));
+            if(label){
+                auto token_ = Token(label,token,{line,col});
+                if(token_.label==2){
+                    if(!valid_lit_int(token_.content))
+                        std::cout << line << ":" << col << ":Warnning:overflow: not valid <lit-int> -> " << token_.content << ", it should be in the range [-2^31,2^31-1]\n";
+                    //     std::cout << "Warnning: overflow:" << line << ":" << col <<  " not valid <lit-int> -> " << token_.content << ", it should be 10 or less digits\n";
+                    // else{
+                    //     char* pEnd;
+                    //     int64_t x = strtoll(token_.content.c_str(),&pEnd,10);
+                    //     std::cout << "x: " << x << "\n";
+                    //     if(x<-2147483648||x>2147483647)
+
+                    // }
+                }
+                tokens.push_back(token_);
+            }
             automata.restart();
         }else{
             if(!isspace(c))

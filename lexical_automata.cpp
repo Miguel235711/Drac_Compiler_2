@@ -48,6 +48,7 @@ void LexicalAutomata::add_adhoc_nodes(){
     add_specific(_0_ch,adhoc_nodes[7],number_chars);
     //1
     auto & _1_ch = adhoc_nodes[1]->children;
+    add_specific(_1_ch,adhoc_nodes[7],number_chars); //new for negative numbers
     _1_ch['-']=adhoc_nodes[2];
     //2
     adhoc_nodes[2]->label=0;

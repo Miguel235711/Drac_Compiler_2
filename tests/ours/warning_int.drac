@@ -1,0 +1,10 @@
+main(){
+    var upper_limit,lower_limit,more_than_10_digits,less_than_10_digits;
+
+    less_than_10_digits=1000;
+    more_than_10_digits=10000000000;
+    upper_limit=2147483647;
+    lower_limit=-2147483648;
+    upper_limit_overflow=2147483648;
+    lower_limit_overflow=-2147483649;
+}

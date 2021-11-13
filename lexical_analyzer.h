@@ -26,6 +26,7 @@ class LexicalAnalyzer{
         std::string get_last_token();
         int get_column();
         int get_line();
+        bool valid_lit_int(const std::string & lit_int);
         static std::unordered_map<int,std::string> symbol_lexval_to_name;
         static int id_symbol,curly_open,curly_close,fun_def;
     private:
@@ -33,6 +34,7 @@ class LexicalAnalyzer{
         std::string token;
         int line=1,l_col=0,col=0;
         bool handle_char(char c,std::vector<Token> & tokens,std::ifstream & in);
+        const int64_t min_value = -2147483648, max_value = 2147483647; 
 };
 
 #endif // LEXICAL_ANALYZER_H
