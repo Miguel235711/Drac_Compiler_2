@@ -14,6 +14,7 @@ class SemanticalAnalyzer{
         SemanticalAnalyzer(SyntacticalAnalyzer & syntactical_analyzer,std::unordered_map<int,Mode> special_symbols);
         virtual ~SemanticalAnalyzer();
         void create_and_print_symbol_table_and_extend_syntactical_tree(std::function<void(std::string)> & f_out);
+        void calculate_types();
     private:
         SyntacticalAnalyzer & syntactical_analyzer;
         SyntacticalNode * syntactical_tree_root;
@@ -35,6 +36,7 @@ class SemanticalAnalyzer{
         void create_and_print_symbol_table_and_extend_syntactical_tree(SyntacticalNode * node,SyntacticalNode * parent,std::function<void(std::string)> & f_out,Mode mode,Scopes & scopes,bool is_global_transverse); // true if definition, false if reference 
         void print_table_entry(IdNode * id_node,std::function<void(std::string)> & f_out);
         //mode -> does not matter initial value but could be dangerous because it depends on the grammar
+        void calculate_types(SyntacticalNode * node);
         Mode assign_mode(SyntacticalNode * node,Mode cur_mode);
 
         

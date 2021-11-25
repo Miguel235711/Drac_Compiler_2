@@ -14,6 +14,11 @@
 #include "in_file_names.h"
 #include "token.h"
 
+#define BEGIN_SEMANTIC_RULE new SemanticalRule([](std::function<CompleteType *(int)>get_rule_type_at){
+#define END_SEMANTIC_RULE })
+#define ERROR_SEMANTIC_ANS new CompleteType(var_entity,error_type,{})
+#define RETURN_VAR_ENTITY_AND_VOID_TYPE return new CompleteType(var_entity,void_type,{});
+
 bool testing = false;
 auto cases_path_c_str = std::string("./cases/").c_str();
 int SyntacticalAnalyzer::end_symbol = 40;
@@ -23,6 +28,385 @@ int LexicalAnalyzer::id_symbol = 1,LexicalAnalyzer::curly_open = 24, LexicalAnal
 int IdNode::index_counter = 0;
 //int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 40;
 auto in_file_names = InFileNames("./syntactical_table.txt","./grammar.txt","./symbols.txt");
+std::unordered_map<int,TypeValue> SyntacticalNode::symbol_to_type={
+    {2,int_type}
+    ,{3,char_type}
+    ,{4,string_type}
+    ,{18,bool_type}
+};
+
+bool not_var_entity_or_not_void_value(CompleteType * x){
+    return x->symbol_entity != var_entity || x->type_value != void_type;
+}
+
+bool  not_var_entity_or_not_bool_value(CompleteType * x){ 
+    return x->symbol_entity != var_entity || x->type_value != bool_type;
+}
+
+bool numeric_variable_type(CompleteType * type){
+    return
+        type->type_value == int_type
+        ||
+        type->type_value == bool_type
+    ;
+}
+
+bool any_variable_type(CompleteType * type){
+    return 
+        type->symbol_entity == var_entity
+        &&
+        (
+            numeric_variable_type(type)
+            ||
+            type->type_value == array_type
+            ||
+            type->type_value == char_type
+            ||
+            type->type_value == string_type
+        )
+    ;
+}
+
+CompleteType * numeric_variable_single(CompleteType * type){
+    auto ans = ERROR_SEMANTIC_ANS;
+    if(!numeric_variable_type(type))
+        return ans;
+    ans->type_value = void_type;
+    return ans;
+}
+
+CompleteType * any_variable_single(CompleteType * type){
+    auto ans = ERROR_SEMANTIC_ANS;
+    if(!any_variable_type(type))
+        return ans;
+    ans->type_value = void_type;
+    return ans;
+}
+
+CompleteType * empty_single(CompleteType * type){
+    auto ans = ERROR_SEMANTIC_ANS;
+    if(
+        type->symbol_entity != var_entity || type->type_value != void_type
+    )
+        return ans;
+    ans->type_value = void_type;
+    return ans;
+}
+CompleteType * expr_list_handler(CompleteType * expr, CompleteType * expr_list_cont){
+    auto ans = ERROR_SEMANTIC_ANS;
+    if(
+        !any_variable_single(expr)
+        ||
+        not_var_entity_or_not_void_value(expr_list_cont)
+    )
+        return ans;
+    ans->nested_elements = expr_list_cont->nested_elements;
+    ans->nested_elements.push_back(expr); // the vector is reversed
+    return ans;
+}
+
+std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
+    //1 ‹program› → ‹def-list›
+    BEGIN_SEMANTIC_RULE
+        auto def_list_type  = get_rule_type_at(0);
+        return new CompleteType(var_entity,def_list_type->symbol_entity == var_entity && def_list_type->type_value == void_type ? void_type : error_type,{});
+    END_SEMANTIC_RULE,
+    //2 ‹def-list› → ‹def-list› ‹def›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto def_list_type = get_rule_type_at(0);
+        if(def_list_type->type_value!=void_type)
+            return ans;
+        auto def_type = get_rule_type_at(1);
+        if(def_type->type_value!=void_type)
+            return ans;
+        //extend <def-list> with <def>
+        ans->type_value = void_type;
+        /*ans->nested_elements = def_list_type->nested_elements;
+        ans->nested_elements.push_back(def_type);
+        ans->type_value = deflist_type;*/
+        return ans;
+    END_SEMANTIC_RULE,
+    //3 ‹def-list› → ε
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //4 ‹def› →	‹var-def›
+    BEGIN_SEMANTIC_RULE
+        auto var_def = get_rule_type_at(0);
+        return new CompleteType(var_entity, var_def->symbol_entity == var_entity &&  var_def->type_value == void_type ? void_type : error_type,{});
+    END_SEMANTIC_RULE,
+    //5 ‹def› → ‹fun-def›
+    BEGIN_SEMANTIC_RULE
+        auto fun_def = get_rule_type_at(0);
+        return new CompleteType(fun_entity,fun_def->symbol_entity == fun_entity && fun_def->type_value == void_type ? void_type : error_type,{});
+    END_SEMANTIC_RULE,
+    //6 ‹var-def› →	var ‹var-list› ;
+    BEGIN_SEMANTIC_RULE
+        auto var_list = get_rule_type_at(1);
+        return new CompleteType(var_entity,var_list->symbol_entity == var_entity && var_list->type_value == void_type ? void_type : error_type,{});
+    END_SEMANTIC_RULE,
+    //7 ‹var-list› → ‹id-list›
+    BEGIN_SEMANTIC_RULE
+        auto var_list = get_rule_type_at(0);
+        return new CompleteType(var_entity,var_list->symbol_entity == var_entity && var_list->type_value == idlist_type ? void_type : error_type,{});
+    END_SEMANTIC_RULE,
+    //8 ‹id-list› → ‹id› ‹id-list-cont›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto id = get_rule_type_at(0);
+        if(not_var_entity_or_not_void_value(id))  //be careful!!! depends if normal or function call
+            return ans;
+        auto id_list_cont_type = get_rule_type_at(1);
+        if(id_list_cont_type->symbol_entity != var_entity || id_list_cont_type->type_value != idlist_type)
+            return ans;
+        //extend <id-list-cont>  with <id>
+        ans->nested_elements = id_list_cont_type->nested_elements;
+        ans->nested_elements.push_back(id);  // the vector is reversed
+        ans->type_value = idlist_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //9 ‹id-list-cont› → , ‹id› ‹id-list-cont›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;;
+        auto id = get_rule_type_at(1);
+        if(not_var_entity_or_not_void_value(id))  //be careful!!!!
+            return ans;
+        auto id_list_cont_type = get_rule_type_at(2);
+        if(id_list_cont_type->symbol_entity != var_entity || id_list_cont_type->type_value != idlist_type)
+            return ans;
+        //extend <id-list-cont>  with <id>
+        ans->nested_elements = id_list_cont_type->nested_elements;
+        ans->nested_elements.push_back(id);  // the vector is reversed
+        ans->type_value = idlist_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //10 ‹id-list-cont› → ε
+    BEGIN_SEMANTIC_RULE
+        return new CompleteType(var_entity,idlist_type,{});
+    END_SEMANTIC_RULE,
+    //11 ‹fun-def› → ‹id› ( ‹param-list› ) { ‹var-def-list› ‹stmt-list› }    same type as <param-list> dimension
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;;
+        auto id = get_rule_type_at(0),
+            param_list = get_rule_type_at(2),
+            var_def_list = get_rule_type_at(5),
+            stmt_list = get_rule_type_at(6)
+        ;
+        if(
+            id->symbol_entity != var_entity || id->type_value!=void_type
+            || 
+            param_list->symbol_entity != var_entity || param_list->type_value != idlist_type
+            ||
+            not_var_entity_or_not_void_value(var_def_list)
+            ||
+            not_var_entity_or_not_void_value(stmt_list)
+           
+        )
+            return ans;
+        ans->nested_elements = param_list->nested_elements;
+        ans->type_value = void_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //12 ‹param-list› → ‹id-list›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto id_list = get_rule_type_at(0);
+        if(id_list->symbol_entity!=var_entity || id_list->type_value!= idlist_type)
+            return ans;
+        return id_list;
+    END_SEMANTIC_RULE,
+    //13 ‹param-list› → ε
+    BEGIN_SEMANTIC_RULE
+        return new CompleteType(var_entity,idlist_type,{});
+    END_SEMANTIC_RULE,
+    //14 ‹var-def-list› → ‹var-def-list› ‹var-def› 
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto 
+            var_def_list = get_rule_type_at(0),
+            var_def = get_rule_type_at(1)
+        ;
+        if(
+            not_var_entity_or_not_void_value(var_def_list)
+            ||
+            not_var_entity_or_not_void_value(var_def)
+        )
+            return ans;
+        //ans->nested_elements = var_def_list->nested_elements;
+        //ans->nested_elements.push_back(var_def);
+        ans->type_value = void_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //15 ‹var-def-list› → ε
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //16 ‹stmt-list› →	‹stmt-list› ‹stmt›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto 
+            stmt_list = get_rule_type_at(0),
+            stmt = get_rule_type_at(1)
+        ;
+        if(
+            not_var_entity_or_not_void_value(stmt_list)
+            ||
+            not_var_entity_or_not_void_value(stmt)
+        )
+         ans->type_value = void_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //17  ‹stmt-list› → ε
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //18 ‹stmt› → ‹stmt-assign›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //19 ‹stmt› → ‹stmt-incr›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //20 ‹stmt› → ‹stmt-decr›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //21 ‹stmt› → ‹stmt-fun-call›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //22 ‹stmt› → ‹stmt-if›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //23 ‹stmt› → ‹stmt-while›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //24 ‹stmt› → ‹stmt-do-while›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //25 ‹stmt› → ‹stmt-break›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //26 ‹stmt› → ‹stmt-return›
+    BEGIN_SEMANTIC_RULE
+        return any_variable_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //27 ‹stmt› →‹stmt-empty›
+    BEGIN_SEMANTIC_RULE
+        return empty_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //28 ‹stmt-assign› → ‹id› = ‹expr› ;
+    BEGIN_SEMANTIC_RULE
+        //check that ‹id› has void type or type is already equal to that of ‹expr›
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto id = get_rule_type_at(0),
+            expr = get_rule_type_at(2)
+        ;
+        if(
+            id->symbol_entity!=var_entity || (id->type_value != void_type && id->type_value != expr->type_value)
+            ||
+            expr->symbol_entity!=var_entity || !any_variable_type(expr)
+        )
+            return ans;
+        ans->type_value = void_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //29 ‹stmt-incr› →	inc ‹id› ;
+    BEGIN_SEMANTIC_RULE
+        return numeric_variable_single(get_rule_type_at(1));
+    END_SEMANTIC_RULE,
+    //30 ‹stmt-decr› → dec ‹id› ;
+    BEGIN_SEMANTIC_RULE
+        return numeric_variable_single(get_rule_type_at(1));
+    END_SEMANTIC_RULE,
+    //31 ‹stmt-fun-call› → ‹fun-call› ;
+    BEGIN_SEMANTIC_RULE
+        return any_variable_single(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //32 ‹fun-call› → ‹id› ( ‹expr-list› )
+    BEGIN_SEMANTIC_RULE
+        //assign types to elements and call transversal of the syntax tree from this - HARD!!!
+    END_SEMANTIC_RULE,
+    //33 ‹expr-list› →	‹expr› ‹expr-list-cont›
+    BEGIN_SEMANTIC_RULE
+        return expr_list_handler(get_rule_type_at(0),get_rule_type_at(1));
+    END_SEMANTIC_RULE,
+    //34 ‹expr-list› → ε
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //35 ‹expr-list-cont› →	, ‹expr› ‹expr-list-cont›
+    BEGIN_SEMANTIC_RULE
+        return expr_list_handler(get_rule_type_at(1),get_rule_type_at(2));
+    END_SEMANTIC_RULE,
+    //36 ‹expr-list-cont› → ε
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //37 ‹stmt-if› → if ( ‹expr› ) { ‹stmt-list› } ‹else-if-list› ‹else›
+    BEGIN_SEMANTIC_RULE // here <expr> should already be casted to bool
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto 
+            expr = get_rule_type_at(2)
+            ,stmt_list = get_rule_type_at(5)
+            ,else_if_list = get_rule_type_at(7)
+            ,else_ = get_rule_type_at(8)
+        ;
+        if(
+            not_var_entity_or_not_bool_value(expr)
+            || 
+            not_var_entity_or_not_void_value(stmt_list)
+            ||
+            not_var_entity_or_not_void_value(else_if_list)
+            ||
+            not_var_entity_or_not_void_value(else_)
+        )
+            return ans;
+        ans->type_value = void_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //38 ‹else-if-list› → ‹else-if-list› elif ( ‹expr› ) { ‹stmt-list› }
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto
+            else_if_list = get_rule_type_at(0)
+            ,expr = get_rule_type_at(3)
+            ,stmt_list = get_rule_type_at(6);
+        if(
+            not_var_entity_or_not_void_value(else_if_list)
+            ||
+            not_var_entity_or_not_bool_value(expr)
+            ||
+            not_var_entity_or_not_void_value(stmt_list)
+        )
+            return ans;
+        ans->type_value = void_type;
+    END_SEMANTIC_RULE,
+    //39 ‹else-if-list› → ε
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE;
+    END_SEMANTIC_RULE,
+    //40 ‹else› → else { ‹stmt-list› }
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto stmt_list = get_rule_type_at(2);
+        if(
+            not_var_entity_or_not_void_value(stmt_list)
+        )
+            return ans;
+        ans->type_value = void_type;
+    END_SEMANTIC_RULE,
+    //41 ‹else› → ε
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE;
+    END_SEMANTIC_RULE
+}; //handle later
 
 void load_lex_names(){
     std::fstream in(in_file_names.symbols_file_name); 

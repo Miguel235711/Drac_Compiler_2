@@ -81,3 +81,24 @@ void SemanticalAnalyzer::print_table_entry(IdNode * id_node,std::function<void(s
     std::string s = id_node->id_type  == var_def ? "var" : "fun";
     f_out("type: "+s+" scope: "+std::to_string(id_node->scope)+" name: "+id_node->name+" index: "+std::to_string(id_node->index)+"\n");
 }
+
+void SemanticalAnalyzer::calculate_types(SyntacticalNode * node){
+    auto adjacent = node->adjacent;
+    for(auto adj:adjacent)
+        calculate_types(adj);
+    if(node->semantical_rule!=NULL){
+        ///<stmt-assign> special case of changing type
+        if(node->symbol==-13)
+            adjacent[0]->type = adjacent[2]->type;
+        node->type = node->semantical_rule->get_type([adjacent](int i){
+            return adjacent[i]->type;
+        });
+    }
+    //else
+        //node->type = error_type; //already calculated
+}
+
+
+void SemanticalAnalyzer::calculate_types(){
+    calculate_types(syntactical_tree_root);
+}

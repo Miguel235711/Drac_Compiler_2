@@ -19,21 +19,7 @@
 
 
 
-struct SyntacticalNode{
-    int symbol;
-    std::vector<SyntacticalNode*> adjacent;
-    std::string id_content; //empty if  ///this is repetitive because id_node has it
-    IdNode * id_node = NULL;
-    std::pair<int,int> location = {-1,-1};
-    SyntacticalNode(int symbol):symbol(symbol){
-    }
-    SyntacticalNode(int symbol,std::string id_content,std::pair<int,int> location):
-        id_content(id_content)
-        ,symbol(symbol)
-        ,location(location){
 
-    }
-};
 
 class SyntacticalAnalyzer{
     public: 
@@ -44,6 +30,8 @@ class SyntacticalAnalyzer{
         SyntacticalNode * get_syntatical_tree_root();
         
         static int end_symbol;
+
+        static std::vector<SemanticalRule*> semantical_rules;
 
     private:
 
@@ -79,6 +67,7 @@ class SyntacticalAnalyzer{
         std::pair<OpType,int> get_mov(int state,int symbol);
         bool handle_reduction(std::stack<StackElement*> & st,int rule_number);   
         void print_syntatical_tree(SyntacticalNode * node,std::function<void(std::string)> & f_out,int level);
+
 };
 
 #endif // SYNTACTICAL_ANALYZER_H

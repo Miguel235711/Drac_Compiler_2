@@ -1,7 +1,11 @@
 #include "production_rule.h"
 
 
-ProductionRule::ProductionRule(int rule_label,int left_non_terminal):rule_label(rule_label),left_non_terminal(left_non_terminal){
+ProductionRule::ProductionRule(int rule_label,int left_non_terminal,SemanticalRule * semantical_rule):
+    rule_label(rule_label)
+    ,left_non_terminal(left_non_terminal)
+    ,semantical_rule(semantical_rule)
+{
 
 }
 

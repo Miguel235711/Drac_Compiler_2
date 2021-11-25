@@ -8,12 +8,12 @@ SyntacticalAnalyzer::SyntacticalAnalyzer(const InFileNames & in_file_names){
     std::ifstream in(in_file_names.rule_file_name);
     std::string line;
     int symbol, rule_count = 0;
-    while(getline(in,line)){
+    for(size_t i = 0;getline(in,line);i++){
         //std::cout << "line: " << line << "\n";
         std::stringstream line_stream(line);
         line_stream >> symbol;
         //std:: cout << "left non-terminal: " << symbol << "\n";
-        ProductionRule * rule = new ProductionRule(rule_count++,symbol);
+        ProductionRule * rule = new ProductionRule(rule_count++,symbol,semantical_rules[i]);
         while(line_stream >> symbol){
             //std::cout << "right symbol: " << symbol << "\n";
             rule->add_right_symbol(symbol);
