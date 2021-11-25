@@ -405,6 +405,36 @@ std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
     //41 ‹else› → ε
     BEGIN_SEMANTIC_RULE
         RETURN_VAR_ENTITY_AND_VOID_TYPE;
+    END_SEMANTIC_RULE,
+    //42 ‹stmt-while› →	 while ( ‹expr› ) { ‹stmt-list› }
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto 
+            expr = get_rule_type_at(2)
+            ,stmt_list = get_rule_type_at(5)
+        ;
+        if(
+            not_var_entity_or_not_bool_value(expr)
+            ||
+            not_var_entity_or_not_void_value(stmt_list)
+        )
+            return ans;
+        ans->type_value = void_type;
+    END_SEMANTIC_RULE,
+    //43 ‹stmt-do-while› → do { ‹stmt-list› } while ( ‹expr› ) ;
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto 
+            stmt_list = get_rule_type_at(5)
+            ,expr = get_rule_type_at(2)
+        ;
+        if(
+            not_var_entity_or_not_void_value(stmt_list)
+            ||
+            not_var_entity_or_not_bool_value(expr)
+        )
+            return ans;
+        ans->type_value = void_type;
     END_SEMANTIC_RULE
 }; //handle later
 
