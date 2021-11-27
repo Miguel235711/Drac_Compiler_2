@@ -60,7 +60,7 @@ bool Scopes::try_insert_in_scope(ScopeType scope_type,std::string name,IdNode * 
     //insert in corresponding scope
     //std::cout << "try_insert_in_scopes\n";
     //std::cout << "insertion: " << name << "\n";
-    id_node = new IdNode(target_scope.first,scope_type==var_index ? var_def : fun_def,name);
+    id_node = new IdNode(target_scope.first,scope_type==var_index ? var_def : fun_def_symbol,name);
     id_node->scope=target_scope.first;
     target_scope.second.insert(id_node->name);
     target_symbol_track[name].push(id_node);

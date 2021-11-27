@@ -9,8 +9,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
+            "args": [
+                "${fileDirname}\\tests\\ours\\semantical_tests\\small\\fun_calls.drac" //test 1
+            ],
+            "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,

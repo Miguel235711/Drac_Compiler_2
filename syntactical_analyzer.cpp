@@ -184,3 +184,7 @@ void SyntacticalAnalyzer::print_syntatical_tree(SyntacticalNode * node,std::func
 SyntacticalNode * SyntacticalAnalyzer::get_syntatical_tree_root(){
     return parent_stack_element->node;
 }
+
+/*bool SyntacticalAnalyzer::has_main_function(){
+    return 
+}*/

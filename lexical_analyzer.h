@@ -28,7 +28,16 @@ class LexicalAnalyzer{
         int get_line();
         bool valid_lit_int(const std::string & lit_int);
         static std::unordered_map<int,std::string> symbol_lexval_to_name;
-        static int id_symbol,curly_open,curly_close,fun_def;
+        static int 
+            id_symbol
+            ,curly_open_symbol
+            ,curly_close_symbol
+            ,fun_def_symbol
+            ,break_symbol
+            ,stmt_do_while_symbol
+            ,stmt_while_symbol
+            ,param_list_symbol
+        ;
     private:
         LexicalAutomata automata;
         std::string token;

@@ -4,7 +4,7 @@
 #include <string>
 
     enum Mode{
-        var_def,fun_def,var_ref,fun_ref,none
+        var_def,fun_def_symbol,var_ref,fun_ref,none
     };
 
     struct IdNode{
@@ -12,6 +12,7 @@
         Mode id_type;
         std::string name;
         static int index_counter;
+        int arity=-1; /// only useful for <id> that has <fun-def> as immediate parent
         IdNode(int scope,Mode id_type,std::string name):scope(scope),id_type(id_type),name(name){
             index=index_counter++;
         }

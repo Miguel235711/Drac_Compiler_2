@@ -4,7 +4,7 @@
 #include "semantical_rule.h"
 #include "syntactical_analyzer.h"
 
-#define BEGIN_SEMANTIC_RULE new SemanticalRule([](std::function<CompleteType *(int)>get_rule_type_at){
+#define BEGIN_SEMANTIC_RULE new SemanticalRule([](std::function<CompleteType *(int)>get_rule_type_at) /* -> CompleteType * */{
 #define END_SEMANTIC_RULE })
 #define ERROR_SEMANTIC_ANS new CompleteType(var_entity,error_type,{})
 #define RETURN_VAR_ENTITY_AND_VOID_TYPE return new CompleteType(var_entity,void_type,{});
@@ -162,8 +162,8 @@ std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
     END_SEMANTIC_RULE,
     //5 ‹def› → ‹fun-def›
     BEGIN_SEMANTIC_RULE
-        auto fun_def = get_rule_type_at(0);
-        return new CompleteType(fun_entity,fun_def->symbol_entity == fun_entity && fun_def->type_value == void_type ? void_type : error_type,{});
+        auto fun_def_symbol = get_rule_type_at(0);
+        return new CompleteType(fun_entity,fun_def_symbol->symbol_entity == fun_entity && fun_def_symbol->type_value == void_type ? void_type : error_type,{});
     END_SEMANTIC_RULE,
     //6 ‹var-def› →	var ‹var-list› ;
     BEGIN_SEMANTIC_RULE
@@ -355,9 +355,11 @@ std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
         return handle_any_variable_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //32 ‹fun-call› → ‹id› ( ‹expr-list› )
-    /*BEGIN_SEMANTIC_RULE
+    BEGIN_SEMANTIC_RULE
         //assign types to elements and call transversal of the syntax tree from this - HARD!!!
-    END_SEMANTIC_RULE,*/
+        get_rule_type_at(2);
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
     //33 ‹expr-list› →	‹expr› ‹expr-list-cont›
     BEGIN_SEMANTIC_RULE
         return expr_list_handler(get_rule_type_at(0),get_rule_type_at(1));
@@ -688,8 +690,10 @@ std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
         return handle_bridge_variable_type(get_rule_type_at(1));
     END_SEMANTIC_RULE,
     //81 ‹array› →	[ ‹expr-list› ] ---> HARD !!!
-    /*BEGIN_SEMANTIC_RULE
-    END_SEMANTIC_RULE,*/
+    BEGIN_SEMANTIC_RULE
+        get_rule_type_at(1);
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
     //82 ‹lit› → ‹lit-bool› --- > <lit> is ONLY a bridge to ‹lit-bool›
     BEGIN_SEMANTIC_RULE
         return handle_bool_variable_single(get_rule_type_at(0),bool_type);

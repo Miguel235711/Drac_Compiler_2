@@ -28,6 +28,8 @@ class SyntacticalAnalyzer{
         bool is_correct(std::vector<Token> & tokens);
         void print_syntatical_tree(std::function<void(std::string)> & f_out);
         SyntacticalNode * get_syntatical_tree_root();
+
+        //bool has_main_function();
         
         static int end_symbol;
 

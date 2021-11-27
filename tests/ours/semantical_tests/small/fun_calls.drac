@@ -1,0 +1,19 @@
+f(a,b,c){
+    return f(a + b + c + x,b,c);
+    while(a<b){
+        if(c<b){
+            break;
+        }
+    }
+    do {
+        break;
+    }while(x<a);
+    break;
+}
+f(a,b){}
+var x;
+main(){
+    f(1,2,3);
+    g();
+    x = 1000000000000;
+}
