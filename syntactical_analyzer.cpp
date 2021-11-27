@@ -116,7 +116,7 @@ bool SyntacticalAnalyzer::is_correct(std::vector<Token> & tokens){
             }else{
                 auto last_to_push = new StackElement(true,mov.second);
                 if(mov.first == Shift){
-                    st.push(token.label == LexicalAnalyzer::id_symbol ?  new StackElement(false,token.label,token.content,token.location) : new StackElement(false,token.label)); ///could be terminal symbol
+                    st.push(token.label == LexicalAnalyzer::id_symbol ?  new StackElement(false,token.label,token.content,token.location) : new StackElement(false,token.label,token.content,token.location)); ///could be terminal symbol
                     st.push(last_to_push);                   
                     break;
                 }else{

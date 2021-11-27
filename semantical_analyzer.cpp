@@ -109,8 +109,11 @@ Arity SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_t
                 << " were received\n"  
             ;
         ///restart expr arity 
-        arity.expr_symbol_arity=0;
+        //arity.expr_symbol_arity=0;
     }
+    //patch for fun_call arguments
+    if(node->symbol == LexicalAnalyzer::expr_primary)
+        arity.expr_symbol_arity = 0;
     return arity;
 }
 

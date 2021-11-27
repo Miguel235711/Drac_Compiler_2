@@ -33,6 +33,7 @@ int
     ,LexicalAnalyzer::expr_list_symbol = -26
     ,LexicalAnalyzer::fun_call_symbol = -25
     ,LexicalAnalyzer::expr_symbol = -24
+    ,LexicalAnalyzer::expr_primary = -42
 ;
 int IdNode::index_counter = 0;
 //int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 40;

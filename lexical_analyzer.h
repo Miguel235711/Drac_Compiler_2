@@ -40,6 +40,7 @@ class LexicalAnalyzer{
             ,expr_list_symbol
             ,fun_call_symbol
             ,expr_symbol
+            ,expr_primary
         ;
     private:
         LexicalAutomata automata;
