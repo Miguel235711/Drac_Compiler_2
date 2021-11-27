@@ -13,7 +13,8 @@ void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tr
     ///API functions begin
     for(auto & API_function : API_functions){
         IdNode * node;
-        scopes.try_insert_in_scope(fun_index,API_function,node);
+        scopes.try_insert_in_scope(fun_index,API_function.first,node);
+        node->arity = API_function.second;
         print_table_entry(node,f_out);
     }
     ///API functions end
@@ -22,7 +23,7 @@ void SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tr
     //std::cout << "finished first semantic: " << "var_scopes(): " << scopes.var_scopes() << "\n";
     create_and_print_symbol_table_and_extend_syntactical_tree(syntactical_tree_root,NULL,f_out,none,scopes,false,false);
 }
-int SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tree(SyntacticalNode * node,SyntacticalNode * parent,std::function<void(std::string)> & f_out,Mode mode,Scopes & scopes,bool is_global_transverse,bool while_or_do_while_as_ancestor){
+Arity SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tree(SyntacticalNode * node,SyntacticalNode * parent,std::function<void(std::string)> & f_out,Mode mode,Scopes & scopes,bool is_global_transverse,bool while_or_do_while_as_ancestor){
     //std::cout << "recursive call\n";
     auto next_mode = assign_mode(node,mode);
     auto symbol = node->symbol;
@@ -36,11 +37,11 @@ int SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tre
         if(symbol!=LexicalAnalyzer::curly_close_symbol || scopes.var_scopes()>1) //mantaining a single var global scope
             scopes.open_var_scope();
     }
-    int arity = 0;
+    Arity arity;
     //manage scope change end
     auto index = mode == var_def || mode == var_ref ? var_index : fun_index;
     if(symbol==LexicalAnalyzer::id_symbol){
-        arity++;
+        arity.id_symbol_arity++;
         //std::cout << "in id=" << node->id_content << " arity=" << arity << "\n";
         //std::cout << "It's an ID\n";
         ///it's an id0
@@ -68,23 +69,47 @@ int SemanticalAnalyzer::create_and_print_symbol_table_and_extend_syntactical_tre
             else
                 node->id_node = id_node;
         }
-    }else if(!is_global_transverse && symbol == LexicalAnalyzer::break_symbol){
-        if(!while_or_do_while_as_ancestor)
+    }else if(!is_global_transverse){
+        if(symbol == LexicalAnalyzer::break_symbol && !while_or_do_while_as_ancestor)
             std::cout << node->location.first << ":" << node->location.second << ":Error: " << "'break' must be inside a <stmt-do-while> or <stmt-while> \n";
+        else if(symbol == LexicalAnalyzer::expr_symbol)
+            arity.expr_symbol_arity ++;
     }
-    auto adjacent_nodes = node->adjacent;
-    int param_list_arity=-1;
-    for(auto adjacent: adjacent_nodes){
-        int arity_from_call = create_and_print_symbol_table_and_extend_syntactical_tree(adjacent,node,f_out,next_mode,scopes,is_global_transverse,while_or_do_while_as_ancestor || symbol==LexicalAnalyzer::stmt_do_while_symbol || symbol==LexicalAnalyzer::stmt_while_symbol);
+    //std::cout << "node->symbol: " << node->symbol << " size: " << adjacent_nodes.size() << "\n";
+    int id_symbol_arity=-1;
+    for(auto adjacent: node->adjacent){
+        auto arity_from_call = create_and_print_symbol_table_and_extend_syntactical_tree(adjacent,node,f_out,next_mode,scopes,is_global_transverse,while_or_do_while_as_ancestor || symbol==LexicalAnalyzer::stmt_do_while_symbol || symbol==LexicalAnalyzer::stmt_while_symbol);
         if(adjacent->symbol == LexicalAnalyzer::param_list_symbol)
-            param_list_arity = arity_from_call;
+            id_symbol_arity = arity_from_call.id_symbol_arity;
         arity += arity_from_call;
     }
-    if(node->symbol == LexicalAnalyzer::fun_def_symbol &&is_global_transverse&&adjacent_nodes[0]->id_node->arity==-1 /*be sure that arity is not calculated yet*/){ ///assign arity to <id> that corresponds to a function in global_transverse (ULTRA DANGEROUS HACK!!!)
+    //set arity for fun_def id
+    if(node->symbol == LexicalAnalyzer::fun_def_symbol &&is_global_transverse&&node->adjacent[0]->id_node->arity==-1){ ///assign arity to <id> that corresponds to a function in global_transverse (ULTRA DANGEROUS HACK!!!)
         //std::cout << "adjacent_nodes.size(): " << adjacent_nodes.size() << "\n";
-        adjacent_nodes[0]->id_node->arity=param_list_arity;
+        node->adjacent[0]->id_node->arity=id_symbol_arity;
         //std::cout << "after arity assignment\n";
-        print_table_entry(adjacent_nodes[0]->id_node,f_out);
+        print_table_entry(node->adjacent[0]->id_node,f_out);
+    }
+    //check arity for fun_call
+    //std::cout << "size: " << adjacent_nodes.size() << "\n";
+    /*if(node->symbol&&LexicalAnalyzer::fun_call_symbol && adjacent_nodes[0]->id_node == NULL)
+        std::cout << "damn\n";*/
+    /*if(node==NULL)
+        std::cout << "damn\n";*/
+    //std::cout << node->symbol << " size: " << node->adjacent.size() << "\n";
+    if(node->symbol == LexicalAnalyzer::fun_call_symbol){
+        if(!is_global_transverse&&node->adjacent[0]->id_node!=NULL&&node->adjacent[0]->id_node->arity!=arity.expr_symbol_arity)
+            //std::cout << "size of fun-call children: " << node->adjacent.size() << "\n",std::cout << "call argument amount error\n";
+            std::cout 
+                << node->adjacent[0]->location.first 
+                << ":" << node->adjacent[0]->location.second 
+                << ":Error: call to function '" << node->adjacent[0]->id_node->name 
+                << "' expects " <<  node->adjacent[0]->id_node->arity
+                << " parameters, but " << arity.expr_symbol_arity
+                << " were received\n"  
+            ;
+        ///restart expr arity 
+        arity.expr_symbol_arity=0;
     }
     return arity;
 }

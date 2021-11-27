@@ -30,6 +30,9 @@ int
     ,LexicalAnalyzer::stmt_do_while_symbol = -19
     ,LexicalAnalyzer::stmt_while_symbol = -18
     ,LexicalAnalyzer::param_list_symbol = -9
+    ,LexicalAnalyzer::expr_list_symbol = -26
+    ,LexicalAnalyzer::fun_call_symbol = -25
+    ,LexicalAnalyzer::expr_symbol = -24
 ;
 int IdNode::index_counter = 0;
 //int ProductionRule::min_symbol_value = 44, ProductionRule::max_symbol_value = 40;

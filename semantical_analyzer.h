@@ -8,6 +8,27 @@
 #include <fstream>
 
 
+struct Arity{
+    int 
+        id_symbol_arity=0
+        ,expr_symbol_arity=0
+    ;
+    Arity(){}
+    Arity(
+        int id_symbol_arity
+        ,int expr_symbol_arity
+    ):
+        id_symbol_arity(id_symbol_arity)
+        ,expr_symbol_arity(expr_symbol_arity)
+    {
+
+    }
+    Arity& operator+=(const Arity & other){
+        this->expr_symbol_arity += other.expr_symbol_arity;
+        this->id_symbol_arity += other.id_symbol_arity;
+        return *this;
+    }
+};
 
 class SemanticalAnalyzer{
     public:
@@ -20,22 +41,22 @@ class SemanticalAnalyzer{
         SyntacticalAnalyzer & syntactical_analyzer;
         SyntacticalNode * syntactical_tree_root;
         std::unordered_map<int,Mode> special_symbols;
-        std::vector<std::string> API_functions = {
-            "printi"
-            ,"printc"
-            ,"prints"
-            ,"println"
-            ,"readi"
-            ,"reads"
-            ,"new"
-            ,"size"
-            ,"add"
-            ,"get"
-            ,"set"
+        std::vector<std::pair<std::string,int> > API_functions = {
+            {"printi",1}
+            ,{"printc",1}
+            ,{"prints",1}
+            ,{"println",0}
+            ,{"readi",0}
+            ,{"reads",0}
+            ,{"new",1}
+            ,{"size",1}
+            ,{"add",2}
+            ,{"get",2}
+            ,{"set",3}
         };
         bool is_main_function_defined = false;
         //int return value is arity useful for <id> defined as immediate child of <fun-def>
-        int create_and_print_symbol_table_and_extend_syntactical_tree(SyntacticalNode * node,SyntacticalNode * parent,std::function<void(std::string)> & f_out,Mode mode,Scopes & scopes,bool is_global_transverse,bool while_or_do_while_as_ancestor); // true if definition, false if reference 
+        Arity create_and_print_symbol_table_and_extend_syntactical_tree(SyntacticalNode * node,SyntacticalNode * parent,std::function<void(std::string)> & f_out,Mode mode,Scopes & scopes,bool is_global_transverse,bool while_or_do_while_as_ancestor); // true if definition, false if reference 
         void print_table_entry(IdNode * id_node,std::function<void(std::string)> & f_out);
         //mode -> does not matter initial value but could be dangerous because it depends on the grammar
         void calculate_types(SyntacticalNode * node);

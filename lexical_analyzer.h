@@ -37,6 +37,9 @@ class LexicalAnalyzer{
             ,stmt_do_while_symbol
             ,stmt_while_symbol
             ,param_list_symbol
+            ,expr_list_symbol
+            ,fun_call_symbol
+            ,expr_symbol
         ;
     private:
         LexicalAutomata automata;

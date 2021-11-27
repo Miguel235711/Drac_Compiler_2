@@ -1,15 +1,15 @@
 .\tests\third_party\with_proper_names\006_next_day.drac
-type: fun scope: 0 name: printi index: 0 arity: -1
-type: fun scope: 0 name: printc index: 1 arity: -1
-type: fun scope: 0 name: prints index: 2 arity: -1
-type: fun scope: 0 name: println index: 3 arity: -1
-type: fun scope: 0 name: readi index: 4 arity: -1
-type: fun scope: 0 name: reads index: 5 arity: -1
-type: fun scope: 0 name: new index: 6 arity: -1
-type: fun scope: 0 name: size index: 7 arity: -1
-type: fun scope: 0 name: add index: 8 arity: -1
-type: fun scope: 0 name: get index: 9 arity: -1
-type: fun scope: 0 name: set index: 10 arity: -1
+type: fun scope: 0 name: printi index: 0 arity: 1
+type: fun scope: 0 name: printc index: 1 arity: 1
+type: fun scope: 0 name: prints index: 2 arity: 1
+type: fun scope: 0 name: println index: 3 arity: 0
+type: fun scope: 0 name: readi index: 4 arity: 0
+type: fun scope: 0 name: reads index: 5 arity: 0
+type: fun scope: 0 name: new index: 6 arity: 1
+type: fun scope: 0 name: size index: 7 arity: 1
+type: fun scope: 0 name: add index: 8 arity: 2
+type: fun scope: 0 name: get index: 9 arity: 2
+type: fun scope: 0 name: set index: 10 arity: 3
 type: fun scope: 0 name: is_leap_year index: 11 arity: 1
 type: fun scope: 0 name: number_of_days_in_month index: 13 arity: 2
 type: fun scope: 0 name: next_day index: 17 arity: 3
