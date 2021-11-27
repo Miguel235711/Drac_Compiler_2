@@ -42,6 +42,42 @@ bool is_any_variable_type(CompleteType * type){
     ;
 }
 
+CompleteType * handle_variable_type(CompleteType * type, TypeValue target_type, TypeValue result_type){
+    auto ans = ERROR_SEMANTIC_ANS;
+    if(
+        type->type_value != target_type
+    )
+        return ans;
+    ans->type_value = result_type;
+    return ans;
+}
+
+CompleteType * handle_bool_variable_single(CompleteType * type,TypeValue result_type){
+    return handle_variable_type(type,bool_type,result_type);
+}
+
+CompleteType * handle_int_variable_single(CompleteType * type,TypeValue result_type){
+    return handle_variable_type(type,int_type,result_type);
+}
+
+CompleteType * handle_char_variable_single(CompleteType * type,TypeValue result_type){
+    return handle_variable_type(type,char_type,result_type);
+}
+
+CompleteType * handle_string_variable_single(CompleteType * type,TypeValue result_type){
+    return handle_variable_type(type,string_type,result_type);
+}
+
+CompleteType * handle_bridge_variable_type(CompleteType * type){
+    auto ans = ERROR_SEMANTIC_ANS;
+    if(
+        type->type_value == error_type
+    )
+        return ans;
+    ans->type_value = type->type_value;
+    return ans;
+}
+
 CompleteType * handle_numeric_variable_single(CompleteType * type,TypeValue type_result){
     auto ans = ERROR_SEMANTIC_ANS;
     if(!is_numeric_variable_type(type))
@@ -58,7 +94,7 @@ CompleteType * handle_any_variable_single(CompleteType * type,TypeValue type_res
     return ans;
 }
 
-CompleteType * handle_empty_single(CompleteType * type,TypeValue type_result){
+CompleteType * handle_void_single(CompleteType * type,TypeValue type_result){
     auto ans = ERROR_SEMANTIC_ANS;
     if(
         type->symbol_entity != var_entity || type->type_value != void_type
@@ -251,35 +287,35 @@ std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
     END_SEMANTIC_RULE,
     //18 ‹stmt› → ‹stmt-assign›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //19 ‹stmt› → ‹stmt-incr›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //20 ‹stmt› → ‹stmt-decr›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //21 ‹stmt› → ‹stmt-fun-call›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //22 ‹stmt› → ‹stmt-if›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //23 ‹stmt› → ‹stmt-while›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //24 ‹stmt› → ‹stmt-do-while›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //25 ‹stmt› → ‹stmt-break›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //26 ‹stmt› → ‹stmt-return› ---> especial case of <stmt> type being equal a variable type !!!!!
     BEGIN_SEMANTIC_RULE
@@ -288,7 +324,7 @@ std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
     END_SEMANTIC_RULE,
     //27 ‹stmt› →‹stmt-empty›
     BEGIN_SEMANTIC_RULE
-        return handle_empty_single(get_rule_type_at(0),void_type);
+        return handle_void_single(get_rule_type_at(0),void_type);
     END_SEMANTIC_RULE,
     //28 ‹stmt-assign› → ‹id› = ‹expr› ;
     BEGIN_SEMANTIC_RULE
@@ -531,8 +567,145 @@ std::vector<SemanticalRule*> SyntacticalAnalyzer::semantical_rules={
     BEGIN_SEMANTIC_RULE
         RETURN_VAR_ENTITY_AND_VOID_TYPE
     END_SEMANTIC_RULE,
-    
-
+    //62 ‹expr-add› → ‹expr-add› ‹op-add› ‹expr-mul›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto
+            expr_add = get_rule_type_at(0),
+            op_add = get_rule_type_at(1),
+            expr_mul = get_rule_type_at(2) 
+        ;
+        if(
+            !is_numeric_variable_type(expr_add)
+            ||
+            is_not_var_entity_or_not_void(op_add)
+            ||
+            !is_numeric_variable_type(expr_mul)
+        )
+            return ans;
+        ans->type_value = int_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //63 ‹expr-add› → ‹expr-mul›
+    BEGIN_SEMANTIC_RULE
+        auto expr_mul = get_rule_type_at(0);
+        return handle_numeric_variable_single(expr_mul,expr_mul->type_value);
+    END_SEMANTIC_RULE,
+    //64 ‹op-add› → +
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //65 ‹op-add› → −
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //66 ‹expr-mul› → ‹expr-mul› ‹op-mul› ‹expr-unary›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto
+            expr_mul = get_rule_type_at(0),
+            op_mul = get_rule_type_at(1),
+            expr_unary = get_rule_type_at(2) 
+        ;
+        if(
+            !is_numeric_variable_type(expr_mul)
+            ||
+            is_not_var_entity_or_not_void(op_mul)
+            ||
+            !is_numeric_variable_type(expr_unary)
+        )
+            return ans;
+        ans->type_value = int_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //67 ‹expr-mul› → ‹expr-unary›
+    BEGIN_SEMANTIC_RULE
+        auto expr_unary = get_rule_type_at(0);
+        return handle_numeric_variable_single(expr_unary,expr_unary->type_value);
+    END_SEMANTIC_RULE,
+    //68 ‹op-mul› → *
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //69 ‹op-mul› → /
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //70 ‹op-mul› → %
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //71 ‹expr-unary› →	‹op-unary› ‹expr-unary›
+    BEGIN_SEMANTIC_RULE
+        auto ans = ERROR_SEMANTIC_ANS;
+        auto 
+            op_unary = get_rule_type_at(0),
+            expr_unary = get_rule_type_at(1)
+        ;
+        if(
+            is_not_var_entity_or_not_void(op_unary)
+            ||
+            !is_numeric_variable_type(expr_unary)
+        )
+            return ans;
+        ans->type_value = int_type;
+        return ans;
+    END_SEMANTIC_RULE,
+    //72 ‹expr-unary› →	‹expr-primary› ---> ‹expr-unary› is ONLY a bridge to ‹expr-primary›
+    BEGIN_SEMANTIC_RULE
+        return handle_bridge_variable_type(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //73 ‹op-unary› → + 
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //74 ‹op-unary› → -
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //75 ‹op-unary› → not
+    BEGIN_SEMANTIC_RULE
+        RETURN_VAR_ENTITY_AND_VOID_TYPE
+    END_SEMANTIC_RULE,
+    //76 ‹expr-primary› → ‹id› ---> ‹expr-primary› is ONLY a bridge to ‹id›
+    BEGIN_SEMANTIC_RULE
+        return handle_bridge_variable_type(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //77 ‹expr-primary› → ‹fun-call› ---> ‹expr-primary› is ONLY a bridge to ‹fun-call›
+    BEGIN_SEMANTIC_RULE
+        return handle_bridge_variable_type(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //78 ‹expr-primary› → ‹array› ---> ‹expr-primary› is ONLY a bridge to ‹array›
+    BEGIN_SEMANTIC_RULE
+        return handle_bridge_variable_type(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //79 ‹expr-primary› → ‹lit› --- > ‹expr-primary› is ONLY a bridge to ‹lit›
+    BEGIN_SEMANTIC_RULE
+        return handle_bridge_variable_type(get_rule_type_at(0));
+    END_SEMANTIC_RULE,
+    //80 ‹expr-primary› → ( ‹expr› ) --- > ‹expr-primary› is ONLY a bridge to ( ‹expr› )
+    BEGIN_SEMANTIC_RULE
+        return handle_bridge_variable_type(get_rule_type_at(1));
+    END_SEMANTIC_RULE,
+    //81 ‹array› →	[ ‹expr-list› ] ---> HARD !!!
+    /*BEGIN_SEMANTIC_RULE
+    END_SEMANTIC_RULE,*/
+    //82 ‹lit› → ‹lit-bool› --- > <lit> is ONLY a bridge to ‹lit-bool›
+    BEGIN_SEMANTIC_RULE
+        return handle_bool_variable_single(get_rule_type_at(0),bool_type);
+    END_SEMANTIC_RULE,
+    //83 ‹lit› → ‹lit-int› --- > <lit> is ONLY a bridge to ‹lit-int›
+    BEGIN_SEMANTIC_RULE
+        return handle_int_variable_single(get_rule_type_at(0),int_type);
+    END_SEMANTIC_RULE,
+    //84 ‹lit› → ‹lit-char› --- > <lit> is ONLY a bridge to ‹lit-char›
+    BEGIN_SEMANTIC_RULE
+        return handle_char_variable_single(get_rule_type_at(0),char_type);
+    END_SEMANTIC_RULE,
+    //85 ‹lit› → ‹lit-str› --- > <lit> is ONLY a bridge to ‹lit-str›
+    BEGIN_SEMANTIC_RULE
+        return handle_string_variable_single(get_rule_type_at(0),string_type);
+    END_SEMANTIC_RULE
 }; //handle later
 
 #endif // SEMANTICAL_RULES_INIT_H
