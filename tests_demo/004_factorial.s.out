@@ -1,0 +1,26 @@
+.\tests_demo\004_factorial.drac
+type: fun scope: 0 name: printi index: 0 arity: 1
+type: fun scope: 0 name: printc index: 1 arity: 1
+type: fun scope: 0 name: prints index: 2 arity: 1
+type: fun scope: 0 name: println index: 3 arity: 0
+type: fun scope: 0 name: readi index: 4 arity: 0
+type: fun scope: 0 name: reads index: 5 arity: 0
+type: fun scope: 0 name: new index: 6 arity: 1
+type: fun scope: 0 name: size index: 7 arity: 1
+type: fun scope: 0 name: add index: 8 arity: 2
+type: fun scope: 0 name: get index: 9 arity: 2
+type: fun scope: 0 name: set index: 10 arity: 3
+type: fun scope: 0 name: iterative_factorial index: 11 arity: 1
+type: fun scope: 0 name: recursive_factorial index: 15 arity: 1
+type: fun scope: 0 name: funcion index: 17 arity: 0
+type: fun scope: 0 name: mainn index: 20 arity: 0
+type: var scope: 22 name: n index: 25
+type: var scope: 22 name: result index: 26
+type: var scope: 22 name: i index: 27
+type: var scope: 26 name: n index: 28
+type: var scope: 33 name: y index: 29
+type: var scope: 33 name: x index: 30
+type: var scope: 34 name: num index: 31
+type: var scope: 34 name: option index: 32
+type: var scope: 34 name: x index: 33
+type: var scope: 41 name: z index: 34

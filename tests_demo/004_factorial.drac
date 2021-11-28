@@ -1,0 +1,63 @@
+(* File: 004_factorial.drac
+   Computes factorials using iteration and recursion.
+   (C) 2021 Ariel Ortiz, ITESM CEM.
+*)
+
+-- Iterative version for computing factorial of n.
+iterative_factorial(n) {
+    var result, i;
+    result = 1;
+    i = 2;
+    while (i <= n) {
+        result = result * i;
+        inc i;
+    }
+    return result;
+}
+
+-- Recursive version for computing factorial of n.
+recursive_factorial(n) {
+    if (n <= 0) {
+        return 1;
+    } else {
+        return n * recursive_factorial(n - 1);
+    }
+}
+
+funcion(){
+    y = -100000000000000;
+    funcion();
+    z=5;
+}
+
+var y;
+
+var x;
+
+mainn() {
+    var num, option,x;
+    x = funcion();
+    x = 9;
+    y = +x;
+    --println("Hello\n");
+    do {
+        break;
+        prints("Input a number: ");
+        num = readi();
+        prints("Iterative factorial: ");
+        printi(iterative_factorial(num));
+        println();
+        prints("Recursive factorial: ");
+        printi(recursive_factorial(num));
+        println();
+        prints("Compute another factorial? ");
+        option = reads();
+        if (size(option) == 0) {
+            option = 'N';
+        } else {
+            option = get(option, 0);
+        }
+    } while (option == 'Y' or option == 'y');
+}
+
+var z;
